@@ -1,0 +1,49 @@
+// Mixins
+@mixin full-width {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// Theme Colors
+
+$color-primary: #333;
+$color-secondary: #f5f6f7;
+$color-tertiary: #71d2ff;
+// $vert-clair: #8fffda;
+// $bleu-vif: #00ccff;
+// $bleu-clair: #7fcefc;
+
+// Ensemble -> Effet "Papier Journal"
+// $color-primary: #333;
+// $color-secondary: #fdfadf;
+
+
+// Keyframes
+@keyframes dropdown__spawn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 0.95;
+  }
+}
+
+@keyframes dropdown__hide {
+  from {
+    transform: translateX(0%);
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

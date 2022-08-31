@@ -21,16 +21,20 @@ const NavBar = () => {
                 { !open ? 
                     "nav__item nav__item--hidden" : 
                     "nav__item nav__item--displayed"}
+                    onClick={handleClick}
                 >
                     <a href={props.linkTo} className="nav__link">{props.name}</a>
                 </li>
             )
         }
     }
-
+    
     function handleClick() {
         setOpen(!open)
-        setClicked(true)
+        if(!clicked) {
+            setClicked(true)
+        }
+        
     }
 
     return (   
@@ -52,8 +56,8 @@ const NavBar = () => {
             <div>
                 <ul className="nav__list">                    
                     <DropdownItem name={"À propos"} linkTo="#about"/>
-                    <DropdownItem name={"Compétences"} linkTo="#projects"/>
-                    <DropdownItem name={"Projets"} linkTo="#skills"/>
+                    <DropdownItem name={"Compétences"} linkTo="#skills"/>
+                    <DropdownItem name={"Projets"} linkTo="#projects"/>
                     <DropdownItem name={"Contact"} linkTo="#contact"/>
                 </ul>
             </div>

@@ -5,14 +5,28 @@
   overflow: hidden;
 }
 
+@mixin button-main {
+  background-color: $color-tertiary;
+  border-radius: 0.5em;
+  border: none;
+  // font-family: "Roboto Condensed";
+}
+
 // Theme Colors
 
 $color-primary: #333;
 $color-secondary: #f5f6f7;
-$color-tertiary: #71d2ff;
+// $color-tertiary: #ffe367;
+$color-tertiary: #67dcff;
+
 // $vert-clair: #8fffda;
 // $bleu-vif: #00ccff;
 // $bleu-clair: #7fcefc;
+
+
+// Dégradé site freelance
+// $saumon: #f26457;
+// $saumon-clair: #fe9d8f;
 
 // Ensemble -> Effet "Papier Journal"
 // $color-primary: #333;

@@ -11,14 +11,20 @@ const Contact = () => {
             </p>
             {/* CDN GMaps ? */}               
             <form>
-                <label htmlFor="name">Nom</label>
-                <input type="text" id="name" name="name" className="contact__nameInput"></input>
+                <label htmlFor="name"></label>
+                <input type="text" id="name" name="name" 
+                className="contact__nameInput"
+                placeholder="Votre nom"></input>
 
-                <label htmlFor="mail">Adresse e-mail</label>
-                <input type="text" id="mail" name="mail" className="contact__mailInput"></input>
+                <label htmlFor="mail"></label>
+                <input type="text" id="mail" name="mail" 
+                className="contact__mailInput"
+                placeholder="Votre mail"></input>
 
-                <label htmlFor="message">Message</label>
-                <textarea id="message" name="message" className="contact__messageInput"></textarea>
+                <label htmlFor="message"></label>
+                <textarea id="message" name="message" 
+                className="contact__messageInput"
+                placeholder="Une question ? Une demande ?"></textarea>
 
                 <input type="button" value="Envoyer" className="contact__button"></input>
             </form>

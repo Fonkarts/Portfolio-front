@@ -13,7 +13,7 @@
 }
 
 section, footer {
-    padding: 2em 1em 1em 1em;
+    padding: 2em 1em 2em 1em;
     text-align: center;
 }
 
@@ -44,6 +44,11 @@ ul {
 
 .header {
     position: relative;
+}
+
+.nav,
+.nav__item {
+    z-index: 1;
 }
 
 .nav {
@@ -245,36 +250,115 @@ ul {
     }
 }
 
-.carousel,
-.carousel__view {
-    border-radius: 0.4em;
-}
-
- .carousel {
-    padding: 1em;
+.carousel {
+    overflow: hidden;
+    border-radius: 0.8em;
     background-color: $color-primary;
-    height: 20em;
-    &__view {
-        @include full-width;
-
-        display: flex;
-        // justify-content: center;
-        height: 20em;
-        background-color: white;
-
+    &__inner {
+        white-space: nowrap;
+        transition: transform 400ms;
     }
-    &__article {
-        transition : 400ms ease-in-out all;
-        width: auto;
-        background: $color-tertiary;
+    &__item {
+        width: 100%;
+        display: inline-block;
+    }
+    &__showcase {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        height: 25em;
         color: $color-secondary;
-        border: 5px solid black;
-        &:nth-child(2),
-        &:nth-child(3) {
-        display: none;        
+    }
+    &__img {
+        width: 100%;
+        padding-top: 1.5em;
+        object-fit: cover;
+    }
+    &__title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height:1.2em;
+        width: 100%;
+        background-color: $color-primary;
+        color: $color-secondary;
+    }
+    &__itemDetails {
+        display: none;
+        &--active {
+            overflow: hidden;
+            width: auto;
+            display: block;
+            height: auto;
+            text-align: center;
+            padding: 1em;
+            color: $color-secondary;
+            border-top: 0.1em $color-secondary solid;
+            border-bottom: 0.1em $color-secondary solid;
+            & h4 {
+                display: inline;
+                border-bottom: 0.1em solid $color-tertiary;
+            }
+            & p {
+                white-space: pre-line;
+                font-size: 1em;
+                line-height: 1.3em;
+                padding: 1em 0;
+            }
+            & a {
+                text-decoration: none;
+                font-weight: bold; 
+                color: $color-tertiary;
+                border: none;
+            }
         }
     }
- }
+    &__detailsControl {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em 0 1em 0;
+        color: $color-secondary;
+        & svg {
+            height: 1em;
+        }
+        & p {
+            padding-left: 0.5em;
+        }
+    }
+    &__detailsButton {
+        border-radius: 50%;
+        border: 0.15em $color-secondary solid;
+        height: 1.5em;
+        width: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 100ms ease-in-out;
+        &--active {
+            transform: rotate(90deg);
+        }
+    }
+    &__indicators {
+        display: flex;
+        justify-content: center;
+        background-color: $color-primary;
+        color: $color-secondary;
+    }
+    &__button {
+        padding: 0.3em;
+        margin: 0.5em;
+        border-radius: 0.3em;
+        border: none;
+        background-color: $color-secondary;
+        color: $color-secondary;
+        &--active {
+            background-color: $color-tertiary;
+            color: $color-primary
+        }
+    }
+}
 
  // SECTION CONTACT
  .contact {

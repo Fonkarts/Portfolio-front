@@ -79,7 +79,7 @@ const Skills = () => {
             <div className="skills__separator"></div>
 
             <div className="skills__skillsItemsContainer">
-                <p>Le coin du geek</p>
+                <p>Le coin geek</p>
                 <SkillsItems/>
             </div>
 

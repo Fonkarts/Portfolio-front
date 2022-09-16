@@ -25,7 +25,7 @@ export const ProjectItem = ({children, width, index, details}) => {
             src: hotTakes
         },
         {
-            description: "Oh My Food ! est une application de réservation dans de grands restaurants. Ce fut l'un de mes premiers projets.",
+            description: "Oh My Food ! est une application de réservation de menus dans de grands restaurants. Ce fut l'un de mes premiers projets.",
             features: "Animations / Responsive / Intégration statique",
             technologies: "HTML / CSS / Sass",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_3_18072021",
@@ -39,12 +39,12 @@ export const ProjectItem = ({children, width, index, details}) => {
         <div className="carousel__item">
             <div className={`carousel__showcase carousel__showcase${index}`} style={{ width: width }}>
                 <img src={currentItem.src} alt="*" className={`carousel__img carousel__img${index}`}/>
-                <h3 className="carousel__title">{children}</h3>
+                { details ? "" : <h3 className="carousel__title">{children}</h3>}
             </div>
             <div className={details? 
             "carousel__itemDetails carousel__itemDetails--active"
             : "carousel__itemDetails"}>
-                <h4>Description</h4>
+                <h3>{children}</h3>
                 <p>{currentItem.description}</p>
                 <h4>Fonctionnalités</h4>
                 <p>{currentItem.features}</p>

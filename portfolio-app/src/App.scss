@@ -296,7 +296,10 @@ ul {
             color: $color-secondary;
             border-top: 0.1em $color-secondary solid;
             border-bottom: 0.1em $color-secondary solid;
-            & h4 {
+            & h3 {
+                font-size: 1.3em;
+            }
+            & h3, h4 {      
                 display: inline;
                 border-bottom: 0.1em solid $color-tertiary;
             }
@@ -365,11 +368,39 @@ ul {
     & label {
         display: block;
     }
+    &__errMsg,
+    &__successMsg,
+    &__userNote,
+    &__mailNote,
+    &__msgNote {
+        display: none;
+        &--active {
+            padding: 0.5em;
+            margin: 0.2em 0.5em;
+            background-color: #465465;
+            color: $color-secondary;
+            border: 0.1em solid $color-primary;
+            border-radius: 1em;
+            text-align: center;
+            font-size: 1em;
+            & svg {
+                padding: 0 0.6em;
+                font-size: 0.7em;
+                color: $color-tertiary;
+            }
+        }
+    }
+    &__successMsg--active {
+        display: inline-flex;
+        align-items: center;
+        & svg {
+            color: #6ad86a;
+        }
+    } 
     & form {
         margin: 1.5em 0;
-        padding: 1em 0;
-        // test
-        border: 1px white solid;
+        padding: 1em 0 2em 0;
+
         border-radius: 1em;
         background-color: $color-secondary;
         color: $color-primary;
@@ -388,11 +419,19 @@ ul {
         font-size: 1.2em;
         padding: 0 0.2em;
     }
-    &__messageInput {
+    &__msgInput {
         height: 8em;
         padding: 0.3em;
         font-size: 1.2em;
         
+    }
+    &__test {
+        display: inline-flex;
+        align-items: center;
+        justify-items: center;
+    }
+    &__recaptcha>div>div {
+        margin: 0 auto;
     }
     &__button {
         @include button-main;

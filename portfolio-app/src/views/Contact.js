@@ -1,32 +1,188 @@
+import { useRef, useState, useEffect } from "react"
 import reactLogo from "../img/skills/react.webp"
-import { faHeart } from "@fortawesome/free-solid-svg-icons"; 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faInfoCircle, faCheck } from "@fortawesome/free-solid-svg-icons"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import ReCAPTCHA from "react-google-recaptcha"
+import axios from "axios"
+
+const USER_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'][A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'-]{2,24}$/;
+const MAIL_REGEX = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/;
+const MSG_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^-_@/!?.%€+:\n ]+$/;
 
 const Contact = () => {
+    const errRef = useRef("")
+
+    const [user, setUser] = useState("")
+    const [validName, setValidName] = useState(false)
+    const [userFocus, setUserFocus] = useState(false)
+
+    const [mail, setMail] = useState("")
+    const [validMail, setValidMail] = useState(false)
+    const [mailFocus, setMailFocus] = useState(false)
+
+    const [msg, setMsg] = useState("")
+    const [validMsg, setValidMsg] = useState(false)
+    const [msgFocus, setMsgFocus] = useState(false)
+
+    const [errMsg, setErrMsg] = useState("")
+    const [success, setSuccess] = useState(false)
+
+    const captchaRef = useRef(null);
+
+    // Validation des entrées
+    useEffect(() => {
+        const result = USER_REGEX.test(user); 
+        setValidName(result) 
+    }, [user])
+
+    useEffect(() => {
+        const result = MAIL_REGEX.test(mail); 
+        setValidMail(result) 
+    }, [mail])
+
+    useEffect(() => {
+        const result = MSG_REGEX.test(msg); 
+        setValidMsg(result) 
+    }, [msg])
+
+    // Vide le message d'erreur dès la reprise de la saisie d'un champ
+    useEffect(() => { 
+        setErrMsg("");
+    }, [user, mail, msg])
+
+    // A DECOUPER !!!!
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const v1 = USER_REGEX.test(user);
+        const v2 = MAIL_REGEX.test(mail);
+        const v3 = MSG_REGEX.test(msg)
+        if(!v1 || !v2 || !v3) {
+            setErrMsg("Informations invalides");
+            return;
+        }
+        try {
+            const token = captchaRef.current.getValue();
+            captchaRef.current.reset();
+            await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
+            .then(() => {
+                sendMail();
+            } )
+
+            // nettoyer valeurs inputs
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg("Pas de réponse du serveur !");
+            } else {
+                setErrMsg("L'envoi a échoué !")
+            }        
+        }
+            errRef.current.focus(); 
+    }
+    
+    const sendMail = async() => {
+        await axios.post(process.env.REACT_APP_SENDMAIL_URL, {
+            username: user,
+            email : mail,
+            message : msg
+        })
+        .then(() => {
+            setSuccess(true);
+            setUser("")
+            setMail("")
+            setMsg("")
+        })
+    }
+
     return (
-        <footer className="contact" id="contact">
+        <footer className="contact" id="contact"> {/*TRANSFORMER EN SECTION ET SEPARER FOOTER !*/}
             <h2 className="contact__title">Contact</h2>
             <p>Mon profil vous intéresse ? <br/>
                 Prenons contact !
             </p>
-            {/* CDN GMaps ? */}               
-            <form>
-                <label htmlFor="name"></label>
-                <input type="text" id="name" name="name" 
-                className="contact__nameInput"
-                placeholder="Votre nom"></input>
+            {/* CDN GMaps ? */} 
+            <p ref={errRef} className={errMsg ? "contact__errMsg--active" : "contact__errMsg"} 
+            aria-live="assertive">
+                {errMsg}
+            </p>      {/* GERER LES CAS D'ERREUR ET AFFICHER errMsg !*/}
+
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="user"></label>
+                <input 
+                    type="text" 
+                    id="user" 
+                    name="user"
+                    className="contact__nameInput"
+                    placeholder="Votre nom"
+                    value={user || ""}
+                    onChange={(e) => setUser(e.target.value)}
+                    required
+                    aria-invalid={validName ? "false" : "true"} // annonce valid ou pas pour screenReaders
+                    aria-describedby= "uidnote"
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)} 
+                />
+                <p id="uidnote" className={userFocus && user && !validName ? "contact__userNote--active" : "contact__userNote"}>
+                    <FontAwesomeIcon icon={faInfoCircle} /><br/>
+                    Votre nom doit comprendre entre 2 et 24 caractères. <br/>
+                    Seuls les lettres, accents, les apostrophes et les tirets sont autorisés.
+                </p>
 
                 <label htmlFor="mail"></label>
-                <input type="text" id="mail" name="mail" 
-                className="contact__mailInput"
-                placeholder="Votre mail"></input>
+                <input 
+                    type="text" 
+                    id="mail" 
+                    name="mail"  
+                    className="contact__mailInput"
+                    placeholder="Votre mail"
+                    value={mail || ""}
+                    onChange={(e) => setMail(e.target.value)}
+                    required
+                    aria-invalid={validMail ? "false" : "true"}
+                    aria-describedby="mailnote"
+                    onFocus={() => setMailFocus(true)}
+                    onBlur={() => setMailFocus(false)}
+                />
+                <p id="mailnote" className={mailFocus && !validMail && mail ? "contact__mailNote--active" : "contact__mailNote"}>
+                    <FontAwesomeIcon icon={faInfoCircle} /><br/>
+                    Votre mail doit se présenter sous la forme 'user@mail.com'<br />
+                </p>
 
-                <label htmlFor="message"></label>
-                <textarea id="message" name="message" 
-                className="contact__messageInput"
-                placeholder="Une question ? Une demande ?"></textarea>
+                <label htmlFor="msg"></label>
+                <textarea 
+                    id="msg" 
+                    name="msg" 
+                    className="contact__msgInput"
+                    placeholder="Votre message"
+                    value={msg || ""}
+                    onChange={(e) => setMsg(e.target.value)}
+                    required
+                    aria-invalid={validMsg ? "false" : "true"}
+                    aria-describedby="msgnote"
+                    onFocus={() => setMsgFocus(true)}
+                    onBlur={() => setMsgFocus(false)}
+                />
+                <p id="msgnote" className={msgFocus && !validMsg && msg ? "contact__msgNote--active" : "contact__msgNote"}>
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                    Votre message doit contenir entre 30 et 500 caractères.<br />
+                    Caractères spéciaux autorisés: ',^-_@/!?.%€+:
+                </p>
+                <div className="contact__test">
+                <ReCAPTCHA 
+                className="contact__recaptcha"
+                sitekey={process.env.REACT_APP_SITE_KEY}
+                size="compact"
+                ref={captchaRef}
+                />
+                </div>
+                
+                
 
-                <input type="button" value="Envoyer" className="contact__button"></input>
+                <button className="contact__button">Envoyer</button>
+
+                <p className={success ? "contact__successMsg--active" : "contact__successMsg"}>
+                    Votre message a bien été envoyé !
+                    <FontAwesomeIcon icon={faCheck}/>
+                </p> 
             </form>
 
             <p>Retrouvez-moi également sur</p>

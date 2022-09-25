@@ -5,7 +5,8 @@ faDesktop,
 faChartLine,
 faHandshake,
 faLock,
-faPeopleRoof } from "@fortawesome/free-solid-svg-icons"
+faPeopleRoof
+} from "@fortawesome/free-solid-svg-icons"
 import reactLogo from "../img/skills/react.webp"
 import nodeLogo from "../img/skills/node.webp"
 import vueLogo from "../img/skills/vue.webp"
@@ -23,7 +24,10 @@ const Skills = () => {
         return (
             <div className="skills__actionItem">
                 <FontAwesomeIcon icon={props.icon} className="skills__actionIcon"/>
-                <p className="skills__actionText">{props.description}</p>
+                <h3 className="skills__actionTitle">{props.title}</h3>
+                <div className="skills__actionMore">
+                    <p className="skills__actionDescription">{props.description}</p>
+                </div>
             </div>
         )
     }
@@ -56,28 +60,38 @@ const Skills = () => {
     return (
         <section className="skills" id="skills">
             <h2 className="skills__title">Compétences</h2>
-
-            <ActionItem
-            description="Comprendre un besoin, le traduire en solution."
-            icon={faMagnifyingGlass}/>
-            <ActionItem
-            description="Accompagner, collaborer et partager."
-            icon={faHandshake}/>
-            <ActionItem
-            description="Créer ou modifier un site web, une API, une base de données."
-            icon={faDesktop}/>
-            <ActionItem
-            description="Veiller au respect des normes d'accessibilité, penser à l'utilisateur."
-            icon={faPeopleRoof}/>
-            <ActionItem
-            description="Favoriser le référencement naturel (SEO), optimiser les performances."
-            icon={faChartLine}/>
-            <ActionItem
-            description="Appliquer les dernières recommandations en termes de cybersécurité."
-            icon={faLock}/>
-
-            <div className="skills__separator"></div>
-
+            <div className="skills__actionsContainer">
+                <div className="skills__actionsGroup">
+                    <ActionItem
+                    title="Comprendre un besoin, le traduire en solution."
+                    description="L'exercice de mon ancien métier de Psychomotricien m'a souvent amené à rapidement cerner une demande, envisager son traitement et rester adaptable."
+                    icon={faMagnifyingGlass}/>
+                    <ActionItem
+                    title="Accompagner, collaborer et partager."
+                    description={"La dimension humaine joue à mon sens un rôle capital dans l'élaboration d'un produit web. C'est pourquoi il me paraît naturel de communiquer efficacement, et en toute transparence."}
+                    icon={faHandshake}/>
+                    <ActionItem
+                    title="Créer ou modifier un site web, une API, une base de données."
+                    description="Je considère le web dans sa globalité et suis donc intéressé par le Front-end et le Back-end. Je les envisage comme des instances ne pouvant fonctionner l'une sans l'autre."
+                    icon={faDesktop}/>
+                </div>
+                <div className="skills__actionsGroup">
+                    <ActionItem
+                    title="Veiller au respect des normes d'accessibilité, penser à l'utilisateur."
+                    description="La satisfaction du client passe aussi par celle des utilisateurs. Respecter leur singularité et penser à leur confort est donc impératif."
+                    icon={faPeopleRoof}/>
+                    <ActionItem
+                    title="Favoriser le référencement naturel (SEO), optimiser les performances."
+                    description="Nous assistons aujourd'hui à un réel essor de la transformation numérique, et la concurrence peut parfois être rude. Tirer son épingle du jeu avec une application visible et fluide devient une nécessité."
+                    icon={faChartLine}/>
+                    <ActionItem
+                    title="Appliquer les dernières recommandations en termes de cybersécurité."
+                    description="Je consulte régulièrement les recommandations de l'OWASP et cherche des moyens simples et efficaces d'améliorer la sécurité d'une application."
+                    icon={faLock}/>
+                </div>
+                
+            </div>
+            
             <div className="skills__skillsItemsContainer">
                 <p>Le coin geek</p>
                 <SkillsItems/>
@@ -89,7 +103,7 @@ const Skills = () => {
                     <a href={cv} download>Télécharger mon CV</a>
                 </button>
             </div>
-
+            <span id="projectsAnchor"></span>
         </section>
     )
 }

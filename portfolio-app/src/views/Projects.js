@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useSwipeable } from "react-swipeable"
-import { faCode, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faCode, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import groupomania from "../img/projects/p7_home.webp"
 import hotTakes from "../img/projects/p6_demo.webp"
@@ -60,7 +60,6 @@ export const ProjectItem = ({children, width, index, details}) => {
 
 const Projects = ({children}) => {
 
-    // const [desktop, setDesktop] = useState(true)
     const [details, setDetails] = useState(false)
     const [activeIndex, setActiveIndex] = useState(0)
     const [paused, setPaused] = useState(false)
@@ -96,21 +95,29 @@ const Projects = ({children}) => {
     return (
         <section className="projects" id="projects">
             <h2 className="projects__title">Projets</h2>
-            <FontAwesomeIcon icon={faCode} className="projects__icon"/>
-            <p className="projects__text">
-                Voici quelques-unes de mes réalisations.<br/>
-            </p>
-            <div 
-            className="carousel"
-            {...swipeHandlers} 
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={()=> setPaused(false)}>
-                <div className="carousel__inner" style={{transform: `translateX(-${activeIndex * 100}%)`}}>
-                    {React.Children.map(children, (child, index) => {
-                        return React.cloneElement(child, {width: "100%", index: index, details: details})
-                    })}
+            <div className="projects__testP">
+                <div>
+                    <p className="projects__text">
+                        Voici quelques-uns de mes projets.<br/>
+                        N'hésitez pas à consulter mon profil Github ou à me contacter pour plus d'informations.
+                    </p>
+                    <FontAwesomeIcon icon={faCode} className="projects__icon"/>
                 </div>
-                <div className="carousel__detailsControl">
+                
+                <div 
+                className="carousel"
+                {...swipeHandlers} 
+                onMouseEnter={() => setPaused(true)}
+                onMouseLeave={()=> setPaused(false)}>
+                    <div className="carousel__inner" style={{transform: `translateX(-${activeIndex * 100}%)`}}>
+                        {React.Children.map(children, (child, index) => {
+                            return React.cloneElement(child, {width: "100%", index: index, details: details})
+                        })}
+                    </div>
+                    <div className="carousel__detailsControl">
+                        <FontAwesomeIcon icon={faAngleLeft} 
+                            className="carousel__leftSelector"
+                            onClick={() => updateIndex(activeIndex-1)}/>
                         <div className={details ? 
                         "carousel__detailsButton carousel__detailsButton--active"
                         : "carousel__detailsButton"} 
@@ -118,21 +125,26 @@ const Projects = ({children}) => {
                             <FontAwesomeIcon icon={faAngleRight} />
                         </div>
                         {details ? <p>- de détails</p> : <p>+ de détails</p>}
-                </div>
-                <div className="carousel__indicators">  
-                    {React.Children.map(children, (child, index) => {
-                        return (
-                            <button
-                                className={index === activeIndex ? "carousel__button carousel__button--active" 
-                                : "carousel__button"}
-                                onClick={() => {
-                                    updateIndex(index)
-                                }}>
-                            </button>
-                        )
-                    })}
+                        <FontAwesomeIcon icon={faAngleRight} 
+                            className="carousel__rightSelector"
+                            onClick={() => updateIndex(activeIndex+1)}/>
+                    </div>
+                    <div className="carousel__indicators">  
+                        {React.Children.map(children, (child, index) => {
+                            return (
+                                <button
+                                    className={index === activeIndex ? "carousel__button carousel__button--active" 
+                                    : "carousel__button"}
+                                    onClick={() => {
+                                        updateIndex(index)
+                                    }}>
+                                </button>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
+            <span id="contactAnchor"></span>
         </section>
     )
 }

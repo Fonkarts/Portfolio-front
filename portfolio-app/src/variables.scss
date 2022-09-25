@@ -1,4 +1,19 @@
-// Mixins
+// MIXINS
+// Vue intermédiaire (tablette)
+@mixin inter-only {
+    @media screen and (min-width: 581px) and (max-width: 950px) {
+      @content;
+    }
+}
+
+// Vue desktop
+@mixin desktop-only {
+  @media screen and (min-width: 951px) {
+    @content;
+  }
+}
+
+// Pour s'assurer que l'élément prenne toute la largeur de l'écran
 @mixin full-width {
   width: 100%;
   box-sizing: border-box;
@@ -9,11 +24,9 @@
   background-color: $color-tertiary;
   border-radius: 0.5em;
   border: none;
-  // font-family: "Roboto Condensed";
 }
 
-// Theme Colors
-
+// THEME COULEURS
 $color-primary: #333;
 $color-secondary: #f5f6f7;
 // Bleu sombre
@@ -39,7 +52,8 @@ $color-tertiary: #6a97f9;
 // $color-secondary: #fdfadf;
 
 
-// Keyframes
+// KEYFRAMES
+// Animation d'apparition des items du nav en vue mobile et inter
 @keyframes dropdown__spawn {
   from {
     transform: translateX(100%);
@@ -54,6 +68,7 @@ $color-tertiary: #6a97f9;
   }
 }
 
+// Animation de retrait des items du nav en vue mobile et inter
 @keyframes dropdown__hide {
   from {
     transform: translateX(0%);

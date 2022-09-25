@@ -1,29 +1,53 @@
 @import "./variables.scss";
 
 // GÉNÉRAL
-
 * {
     margin: 0;
     padding: 0;
+    transition: all ease-in-out 100ms;
 }
 
 .app {
     @include full-width;
     font-family: "Roboto Condensed", "Arial", "sans-serif";
+    text-align: center;
+
+}
+#skillsAnchor,
+#projectsAnchor,
+#contactAnchor {
+    display: block;
+    height: 1em;
 }
 
-section, footer {
+.about, .skills, .projects, .contact, footer {
     padding: 2em 1em 2em 1em;
-    text-align: center;
+}
+
+.about, .projects {
+    background-color: $color-secondary;
+}
+
+.skills, .contact {
+    background-color: $color-primary;
+    color: $color-secondary;
 }
 
 h2 {
     font-size: 1.5em;
+    text-align: center;
     margin-bottom: 1em;
+    @include desktop-only {
+        font-size: 2.5em;
+        padding: 0.3em 5vw;
+    }
 }
 
 p, label {
     font-size: 1.2em;
+    @include desktop-only {
+        font-size: 1.3em;
+    }
 }
 
 a {
@@ -36,6 +60,7 @@ ul {
 
 .separator {
     width: 30vw;
+    max-width: 20em;
     margin: 2em auto;
     border: 1px $color-tertiary solid;
 }
@@ -78,7 +103,7 @@ ul {
     &__icon {
         height: 2em;
         width: 2em;
-        color: $color-tertiary;
+        color: $color-secondary;
         position: absolute;
         top: 1em;
         right: 1em;
@@ -88,40 +113,56 @@ ul {
         }
     }
     &__list {
-        & :nth-child(1):not(.nav__item--hidden) {
+        @include desktop-only {
+            display: inline-flex;
+            width: 100%;
+        }
+        & :nth-child(1):not(.nav__dropItem--hidden) {
             top: 4em;
             animation-delay: 200ms;
         }
-        & :nth-child(2):not(.nav__item--hidden) {
+        & :nth-child(2):not(.nav__dropItem--hidden) {
             top: 8em;
             animation-delay: 300ms;
         }
-        & :nth-child(3):not(.nav__item--hidden) {
+        & :nth-child(3):not(.nav__dropItem--hidden) {
             top: 12em;
             animation-delay: 400ms;
         }
-        & :nth-child(4):not(.nav__item--hidden) {
+        & :nth-child(4):not(.nav__dropItem--hidden) {
             top: 16em;
             animation-delay: 500ms;
         }
-        & :nth-child(1):not(.nav__item--displayed) {
+        & :nth-child(5):not(.nav__dropItem--hidden) {
+            top: 20em;
+            animation-delay: 600ms;
+        }
+        & :nth-child(1):not(.nav__dropItem--displayed) {
             top: 4em;
+            animation-delay: 600ms;
+        }
+        & :nth-child(2):not(.nav__dropItem--displayed) {
+            top: 8em;
             animation-delay: 500ms;
         }
-        & :nth-child(2):not(.nav__item--displayed) {
-            top: 8em;
+        & :nth-child(3):not(.nav__dropItem--displayed) {
+            top: 12em;
             animation-delay: 400ms;
         }
-        & :nth-child(3):not(.nav__item--displayed) {
-            top: 12em;
+        & :nth-child(4):not(.nav__dropItem--displayed) {
+            top: 16em;
             animation-delay: 300ms;
         }
-        & :nth-child(4):not(.nav__item--displayed) {
-            top: 16em;
+        & :nth-child(5):not(.nav__dropItem--displayed) {
+            top: 20em;
             animation-delay: 200ms;
         }
     }
     &__item {
+        padding: 0 1em;
+        width: auto;
+    }
+    &__dropItem {
         position: fixed;
         top: 4em;
         right: 0;
@@ -129,6 +170,7 @@ ul {
         transform: translateX(100%);
         height: 2em;
         line-height: 2em;
+        text-align: left;
         background-color: $color-primary;
         padding: 1em 2em;
         border-top: 1px white solid;
@@ -144,68 +186,142 @@ ul {
         color: $color-tertiary;
         font-size: 1.4em;
         color: $color-secondary;
+        @include desktop-only {
+            &:hover {
+                transition: all 150ms ease-in-out;
+                font-size: 1.5em;
+                color: #57cfff;
+            }
+        }
     }
 }
 
  // SECTION À PROPOS
 
-.about, .projects {
-    background-color: $color-secondary;
-}
-
-.skills, .contact {
-    background-color: $color-primary;
-    color: $color-secondary;
-}
-
  .about {
     margin-top: 4em;
     &__title {
         margin: 1em auto;
-        // TEST !!!
-        // font-family: "Silkscreen";
         font-size: 1.9em;
         color: $color-primary;
+        @include desktop-only {
+            font-size: 2.5em;
+            text-align: right;
+            padding: 0 0 2vw 0;
+        }
+    }
+    &__groupContainer {
+        @include desktop-only {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            padding-bottom: 2em;
+        }
+    }
+    &__group {
+        @include desktop-only {
+            padding: 0 4vw;
+        }
     }
     &__portrait {
-        height: 6em;
-        width: 6em;
+        height: 7em;
+        width: 7em;
         border-radius: 50%;
+        padding: 1em 4em 1em 1em;
+            background: $color-primary;
+        @include desktop-only {
+            height: 10em;
+            width: 10em;
+            margin-left: 2em;
+            padding: 1em 4em 1em 1em;
+            background: $color-primary;
+        }
     }
     &__description {
-        margin-top: 2em;
+        margin-top: 1em;
+        @include desktop-only {
+            margin-top: 4em;
+            width: 40vw;
+            max-width: 25em;
+            font-size: 2em;
+            text-align: left;
+            padding: 3em 0 0 0;
+        }
     }
  }
 
 // SECTION COMPÉTENCES
 
 .skills {
+    &__title {
+        @include desktop-only {
+            text-align: left;
+        }
+    }
+    &__actionsContainer {
+        @include desktop-only {
+            display: inline-flex;
+            padding-top: 2em;
+        }
+    }
+    &__actionsGroup {
+        @include desktop-only{
+            padding: 0 6vw;
+        }
+    }
     &__actionItem {
         margin-bottom: 1em;
+        @include desktop-only {
+            margin: 0 auto;
+            height: 15em;
+            max-width: 25em;
+        }
     }
     &__actionIcon {
+        display: block;
         font-size: 1.5em;
         color: $color-tertiary;
-        margin: 0 0.5em 0.5em 0.5em;
+        margin: 1em auto 0.5em auto;
+        @include desktop-only {
+            font-size: 1.8em;
+        }
+    }
+    &__actionTitle {
+        margin: 1em 0.4em;
+        @include desktop-only {
+            font-size: 1.5em;
+        }
+    }
+    &__actionDescription {
+        margin: 0 auto;
+        padding-bottom: 1em;
+        max-width: 20em;
     }
     &__skillsItemsContainer {
-        max-width: 37em;
-        margin: auto;
+        max-width: 44em;
+        margin: 4em auto 2em auto;
         border: 1px $color-tertiary solid;
         border-radius: 1em;
         padding: 1.5em 0;
         font-family: "Silkscreen";
+        @include desktop-only {
+            margin-top: 7em;
+        }
         & p {
             font-size: 1.1em;
             padding: 0 0.8em;
             margin-bottom: 1em;
+            @include desktop-only {
+                font-size: 1.4em;
+            }
         }
     }
     &__skillItem {
-        // font-family: "Silkscreen";
         font-size: 0.7em;
         display: inline-block;
         padding: 0.7em;
+        @include desktop-only {
+            font-size: 0.9em;
+        }
     }
     &__skillTitle {
         font-weight: normal;
@@ -219,15 +335,23 @@ ul {
     }
     &__resumeTitle {
         padding: 1em 0;
+        @include desktop-only {
+            font-size: 1.2em;
+        }
     }
     &__resumeButton {
         @include button-main;
         padding: 0.5em;
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: bold;
+        font-family: "Roboto Condensed";
         margin-bottom: 1em;
+        background-color: $color-secondary;
+        @include desktop-only {
+            font-size: 1.3em;
+        }
         & a {
-            color: $color-primary;
+            color: $color-tertiary;
         }
     }
 }
@@ -240,20 +364,54 @@ ul {
  // SECTION PROJETS
 
 .projects {
+    &__testP {
+        @include desktop-only {
+            display: inline-flex;
+            align-items: center;
+        }
+    }
+    &__title {
+        @include desktop-only {
+            text-align: right;
+        }
+    }
+    
     &__icon,
     &__text {
+        text-align: center;
         margin-bottom: 1em;
+        @include desktop-only {
+            margin: 0 4vw 0 0;
+        }
+    }
+    &__text {
+        @include desktop-only {
+            padding: 0 0 1em 0;
+            text-align: right;
+            font-size: 2.3em;
+            max-width: 15em;
+        }
     }
     &__icon {
         color: lighten($color-primary, 10%);
         height: 2em;
+        @include desktop-only {
+            font-size: 3em;
+            opacity: 0.2;
+        }
     }
 }
 
 .carousel {
     overflow: hidden;
-    border-radius: 0.8em;
+    border-radius: 0.2em;
     background-color: $color-primary;
+    max-width: 30em;
+    margin: auto;
+    @include desktop-only {
+        max-width: 40em;
+        margin: 2em 5vw 2em 3vw;
+    }
     &__inner {
         white-space: nowrap;
         transition: transform 400ms;
@@ -276,13 +434,14 @@ ul {
     }
     &__title {
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         height:1.2em;
         width: 100%;
         background-color: $color-primary;
         color: $color-secondary;
+        border-bottom: 0.1em solid $color-tertiary;
     }
     &__itemDetails {
         display: none;
@@ -293,6 +452,7 @@ ul {
             height: auto;
             text-align: center;
             padding: 1em;
+            background-color: $color-primary;
             color: $color-secondary;
             border-top: 0.1em $color-secondary solid;
             border-bottom: 0.1em $color-secondary solid;
@@ -322,6 +482,7 @@ ul {
         align-items: center;
         justify-content: center;
         padding: 1em 0 1em 0;
+        background-color: $color-primary;
         color: $color-secondary;
         & svg {
             height: 1em;
@@ -330,6 +491,17 @@ ul {
             padding-left: 0.5em;
         }
     }
+    &__leftSelector,
+    &__rightSelector {
+        display: none;
+        @include desktop-only {
+            display: initial;
+            width: 2em;
+            height: 2em;
+            font-size: 2.5em;
+            margin: 0 auto;
+        }
+    }  
     &__detailsButton {
         border-radius: 50%;
         border: 0.15em $color-secondary solid;
@@ -355,18 +527,21 @@ ul {
         border-radius: 0.3em;
         border: none;
         background-color: $color-secondary;
-        color: $color-secondary;
         &--active {
             background-color: $color-tertiary;
-            color: $color-primary
         }
     }
 }
 
  // SECTION CONTACT
  .contact {
-    & label {
-        display: block;
+    // @include desktop-only {
+    //     padding-top: 0;
+    // }
+    &__title {
+        @include desktop-only {
+            text-align: left;
+        }
     }
     &__errMsg,
     &__successMsg,
@@ -375,18 +550,23 @@ ul {
     &__msgNote {
         display: none;
         &--active {
-            padding: 0.5em;
-            margin: 0.2em 0.5em;
-            background-color: #465465;
-            color: $color-secondary;
+            display: inline-flex;
+            padding: 0.4em;
+            margin: 0.2em 0.5em 1em 0.5em;
+            max-width: 25em;
+            background-color: rgb(252, 216, 161);
+            color: $color-primary;
             border: 0.1em solid $color-primary;
             border-radius: 1em;
             text-align: center;
-            font-size: 1em;
             & svg {
+                align-self: center;
                 padding: 0 0.6em;
-                font-size: 0.7em;
-                color: $color-tertiary;
+                font-size: 1.4em;
+                color: $color-primary;
+            }
+            & p {
+                font-size: 1em;
             }
         }
     }
@@ -397,61 +577,117 @@ ul {
             color: #6ad86a;
         }
     } 
+    &__mainContainer {
+        @include desktop-only {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            padding: 0 5vw;
+        }
+    }
+    &__disclaimer {
+        @include desktop-only {
+            font-size: 2.3em;
+            padding: 1em 2vw 0 0;
+            // padding: 1em 0 0 0;
+            text-align: right;
+            width: 50%;
+        }
+        & svg {
+            width: 2em;
+            height: 2em;
+            padding: 0.5em 3vw 0 0;
+            color: $color-tertiary;
+            @include desktop-only {
+                width: 3.5em;
+                height: 3.5em;
+                color: $color-tertiary;
+                opacity: 0.8;
+            }
+        }
+    }
     & form {
-        margin: 1.5em 0;
-        padding: 1em 0 2em 0;
-
+        margin: 1em auto 2.5em auto;
+        width: 80vw;
+        padding: 0 0 2em 0;
         border-radius: 1em;
-        background-color: $color-secondary;
         color: $color-primary;
+        @include inter-only {
+            max-width: 70vw;
+        }
+        @include desktop-only {
+            padding: 1.5em 2em 0 0;
+            max-width: 50em;
+            width: 50%;
+        }
     }
     & input:not(.contact__button), 
     textarea {
         margin: 0.5em 0;
-        width: 80vw;
+        width: 70vw;
         font-family: "Roboto Condensed";
         border-radius: 0.4em;
         border: 1px solid $color-primary;
+        @include inter-only {
+            max-width: 25em;
+        }
+        @include desktop-only {
+            width: 40vw;
+            min-width: 10em;
+            max-width: 29em;
+        }
     }
     &__nameInput,
     &__mailInput {
-        height: 1.8em;
+        height: 2.2em;
         font-size: 1.2em;
-        padding: 0 0.2em;
+        padding: 0 0.5em;
     }
     &__msgInput {
         height: 8em;
-        padding: 0.3em;
+        padding: 0.5em;
         font-size: 1.2em;
-        
-    }
-    &__test {
-        display: inline-flex;
-        align-items: center;
-        justify-items: center;
+        @include inter-only {
+            height: 10em;
+        }
     }
     &__recaptcha>div>div {
         margin: 0 auto;
+        width: auto;
     }
     &__button {
         @include button-main;
-        padding: 0.3em 0.6em;
-        margin: 0.5em auto;
+        margin: 1em auto 0 auto;
         display: block;
-        font-size: 1.2em;
+        font-size: 1.3em;
         font-family: "Roboto Condensed";
-
+        background-color: $color-tertiary;
+        color: $color-secondary;
+        width: 8em;
+        height: 1.7em;
+        line-height: 1.3em;
+    }
+    &__socialItemContainer {
+        margin: 2em 0;
+        & p {
+            @include desktop-only {
+                font-size: 1.3em;
+            }
+        }
+        & svg {
+            height: 2em;
+            width: 2em;
+            fill: $color-secondary;
+            @include desktop-only {
+                height: 2.2em;
+                width: 2.2em;
+            }
+        }
     }
     &__socialItem {
         display: inline-block;
-        padding: 0.8em 2em;
+        padding: 1em 2em 0 2em;
+    }
 
-    }
-    & svg {
-        height: 2.2em;
-        width: 2.2em;
-        fill: $color-secondary
-    }
     & a {
         color: $color-secondary;
     }

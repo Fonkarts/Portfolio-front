@@ -1,0 +1,233 @@
+// SECTION CONTACT
+
+.contact {
+    &__title {
+        @include desktop-only {
+            text-align: left;
+        }
+    }
+    &__errMsg,
+    &__successMsg,
+    &__userNote,
+    &__mailNote,
+    &__msgNote {
+        display: none;
+        &--active {
+            display: inline-flex;
+            align-items: center;
+            margin: 0.2em 0.5em 1em 0.5em;
+            max-width: 25em;
+            color: $color-primary;
+            border: 0.1em solid $color-primary;
+            border-radius: 0.4em;
+            text-align: center;
+            & svg {
+                align-self: center;
+                padding: 0 0.6em;
+                font-size: 2em;
+                color: $color-navActive;
+            }
+            & p {
+                padding: 0.3em;
+                background-color: #fcd8a1;
+                border-radius: 0.4em;
+                font-size: 1em;
+                font-weight: bold;
+            }
+        }
+    }
+    &__errMsg--active,
+    &__successMsg--active {
+        margin-top: 1em;
+        font-size: 1em;
+        padding: 0.3em;
+        background-color: #fcd8a1;
+        border-radius: 0.4em;
+        font-weight: bold;
+    }
+    &__successMsg--active {
+        animation: hide__success 300ms 2700ms ease-in-out both;
+    } 
+    &__mainContainer {
+        @include desktop-only {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            padding: 0 5vw;
+        }
+    }
+    &__disclaimer {
+        @include desktop-only {
+            font-size: 2.3em;
+            padding: 1em 2vw 0 0;
+            // padding: 1em 0 0 0;
+            text-align: right;
+            width: 50%;
+        }
+        & svg {
+            width: 2em;
+            height: 2em;
+            padding: 0.5em 3vw 0 0;
+            color: $color-tertiary;
+            @include desktop-only {
+                width: 3.5em;
+                height: 3.5em;
+                color: $color-tertiary;
+                opacity: 0.8;
+            }
+        }
+    }
+    & form {
+        margin: 1em auto;
+        width: 80vw;
+        padding: 0 0 2em 0;
+        border-radius: 1em;
+        color: $color-primary;
+        @include inter-only {
+            max-width: 70vw;
+        }
+        @include desktop-only {
+            padding: 1.5em 2em 0 0;
+            max-width: 50em;
+            width: 50%;
+        }
+    }
+    & input:not(.contact__button), 
+    textarea {
+        margin: 0.5em 0;
+        width: 70vw;
+        font-family: "Roboto Condensed";
+        border-radius: 0.4em;
+        border: 1px solid $color-primary;
+        @include inter-only {
+            max-width: 25em;
+        }
+        @include desktop-only {
+            width: 40vw;
+            min-width: 10em;
+            max-width: 29em;
+        }
+    }
+    &__nameInput,
+    &__mailInput {
+        height: 2.2em;
+        font-size: 1.2em;
+        padding: 0 0.5em;
+    }
+    &__msgInput {
+        height: 8em;
+        padding: 0.5em;
+        font-size: 1.2em;
+        @include inter-only {
+            height: 10em;
+        }
+    }
+    &__recaptcha>div>div {
+        margin: auto;
+        height: auto;
+    }
+    .submitButton {
+        width: 6em;
+        height: 2em;
+        padding: 0 0.6em;
+        margin-top: 1em;
+        font-family: "Roboto Condensed";
+        text-shadow: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        outline:none;
+        text-align: center;
+        border: none;
+        border-radius: 0.4em;
+        background-color: $color-secondary;
+        color: $color-tertiary;
+        transition: all 0.25s ease;
+        &:hover {
+            color:$color-secondary;
+            background: $color-tertiary;
+        }
+        &:after {
+            content:"Envoyer";
+        }
+        & svg {
+            display: none;
+        }
+    }
+    .onClick {
+        width: 2em;
+        height: 2em;
+        border: 2px solid $color-secondary;
+        background-color: $color-primary;
+        border-width:3px;
+        border-radius: 2.5em;
+        font-size: 1.2em;
+        border-left-color:$color-tertiary;
+        animation: submitButton__rotation 1s 0.25s linear infinite;
+        &:after {
+            content:"";
+        }
+        &:hover {
+            color: $color-tertiary;
+            background: $color-primary;
+        }
+    }
+    .valid {
+        padding: 0;
+        width: 2em;
+        height: 2em;
+        font-size: 1.2em;
+        border-radius: 50%;
+        color: $color-secondary;
+        background: $color-tertiary;
+        &:after {
+            content:"";
+        }
+        & svg {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    .invalid {
+        width: 6em;
+
+        background-color: rgb(218, 85, 85);
+        color: $color-secondary;
+        &:hover {
+            background-color:rgb(218, 85, 85);
+        }
+        &:after {
+            content: "!";
+        }
+    }
+    &__socialItemContainer {
+        margin: 0.5em 0;
+        & p {
+            @include desktop-only {
+                font-size: 1.3em;
+            }
+        }
+        & svg {
+            height: 2em;
+            width: 2em;
+            fill: $color-secondary;
+            @include desktop-only {
+                height: 2.2em;
+                width: 2.2em;
+            }
+        }
+    }
+    &__socialItem {
+        display: inline-block;
+        padding: 1em 2em 0 2em;
+        width: 4em;
+    }
+
+    & a {
+        color: $color-secondary;
+        &:hover {
+            color: $color-navActive;
+            & svg {
+                fill: $color-navActive;
+            }
+        }
+    }
+ }

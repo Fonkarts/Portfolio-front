@@ -1,0 +1,52 @@
+// SECTION À PROPOS
+
+.about {
+    margin-top: 4em;
+    &__title {
+        margin: 1em auto;
+        font-size: 1.9em;
+        color: $color-primary;
+        @include desktop-only {
+            font-size: 2.5em;
+            text-align: right;
+            padding: 0 0 2vw 0;
+        }
+    }
+    &__groupContainer {
+        @include desktop-only {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            padding-bottom: 2em;
+        }
+    }
+    &__group {
+        @include desktop-only {
+            padding: 0 4vw;
+        }
+    }
+    &__portrait {
+        height: 7em;
+        width: 7em;
+        border-radius: 50%;
+        padding: 1em 4em 1em 1em;
+            background: $color-primary;
+        @include desktop-only {
+            height: 10em;
+            width: 10em;
+            margin-left: 2em;
+            padding: 1em 4em 1em 1em;
+            background: $color-primary;
+        }
+    }
+    &__description {
+        margin-top: 1em;
+        @include desktop-only {
+            margin-top: 4em;
+            width: 40vw;
+            max-width: 25em;
+            font-size: 2em;
+            text-align: left;
+            padding: 3em 0 0 0;
+        }
+    }
+ }

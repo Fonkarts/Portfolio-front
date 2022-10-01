@@ -5,6 +5,7 @@ import About from "./views/About"
 import Skills from "./views/Skills"
 import Projects, {ProjectItem} from './views/Projects';
 import Contact from "./views/Contact"
+import Footer from "./views/Footer"
 
 
 function App() {
@@ -18,11 +19,13 @@ function App() {
   } 
 
   // State renseignant la largeur du viewport
+  // et le type de vue à afficher
   const [windowSize, setWindowSize] = useState(getWindowSize());
+  // const [view, setView] = useState("mobile")
 
   useEffect(() => {
     const handleWindowResize = () => {
-    setWindowSize(getWindowSize());
+      setWindowSize(getWindowSize())
     }
 
     window.addEventListener('resize', handleWindowResize);
@@ -34,7 +37,10 @@ function App() {
 
   return (
     <main className="app" id="aboutAnchor">
-      <NavBar windowSize={windowSize.innerWidth}/>
+      <NavBar 
+        windowWidth={windowSize.innerWidth}
+        windowHeight={windowSize.innerHeight}
+      />
       <About/>
       <Skills/>
       <Projects>
@@ -42,7 +48,8 @@ function App() {
         <ProjectItem>Hot Takes API</ProjectItem>
         <ProjectItem>Oh My Food !</ProjectItem>
       </Projects>
-      <Contact windowSize={windowSize.innerWidth}/>
+      <Contact windowWidth={windowSize.innerWidth}/>
+      <Footer/>
     </main>
   );
 }

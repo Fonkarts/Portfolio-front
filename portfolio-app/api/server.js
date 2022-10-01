@@ -8,12 +8,14 @@ const {EmailSender} = require("./mailer.js");
 const port = process.env.PORT || 2000;
 
 
-// const corsOptions = {
-//     origin: process.env.REACT_APP_CLIENT_URL
-// }
+const corsOptions = {
+    origin: process.env.REACT_APP_CLIENT_URL,
+    methods: "POST",
+    // allowedHeaders: "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+}
 
 // Active cors
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Parse les données
 app.use(express.json());
@@ -23,13 +25,17 @@ app.use(express.urlencoded({extended: true}));
 app.use("/", router);
 
 // Route POST Mail
-app.post("/mail", async (req, res) => {
+router.post("/mail", async (req, res) => {
     try {
-      const { username, email, message } = req.body;
-      EmailSender({username, email, message});
-      res.json({ message: "Votre message a bien été envoyé" });
+        if(req.body.key === process.env.REACT_APP_SITE_KEY) {
+            const { username, email, message } = req.body;
+            EmailSender({username, email, message});
+            res.status(200).json({ message: "Votre message a bien été envoyé" });
+        } else {
+            res.status(403).json({ message: "Non autorisé !" });
+        }
     } catch (error) {
-      res.status(404).json({ message: "Error ❌" });
+      res.status(404).json({ message: "Message non envoyé ❌" });
     }
   });
 
@@ -46,14 +52,14 @@ router.post("/captcha", async (req, res) => {
         // Vérifie le statut de la réponse et le renvoie au client
             if (res.status(200)) {
                 res.send("Vous pouvez passer, Humain 👨 👩 !");
-            }else{
-                res.send("Vous ne passerez pas, Robot 🤖 !");
+            } else {
+                res.send("Vouus ne passereeez paas, Robot 🤖 !");
             }
         })
         .catch(() => res.status(500).json({message: "Problème serveur !"}));
 
     } else {
-        res.status(400).json({message : "Token non trouvé !"});
+        res.status(403).json({message : "Token non trouvé !"});
     }    
 });
 

@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark, faComputer } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = (props) => {
 
-    const windowSize = props.windowSize
+    const windowWidth = props.windowWidth
+    const windowHeight = props.windowHeight
 
     // État d'affichage du menu dropdown (mobile)
     const [open, setOpen] = useState(false);
@@ -47,18 +48,39 @@ const NavBar = (props) => {
         if(!clicked) {
             setClicked(true)
         }
-        
     }
+
+    // Positionne le loader au milieu de la hauteur de l'écran
+    useEffect(() => {
+        const loader = document.querySelector(".loader")
+        const middleHeight = `${windowHeight/2}px`
+        loader.style.top = middleHeight
+    }, [])
 
     return (   
         <header className="header">
+            <div className="loader">
+                <div className="loader__bar1"></div>
+                <div className="loader__bar2"></div>
+                <div className="loader__bar3"></div>
+                <div className="loader__bar4"></div>
+                <div className="loader__bar5"></div>
+                <div className="loader__bar6"></div>
+                <p>
+                    Chargement
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </p>
+            </div>
             <>
-            {windowSize <= 950 ?
+            {windowWidth < 951  ?
             <nav className="nav"> 
                 <div className="nav__logoContainer">
                     <h1 className="nav__logo">
                         <FontAwesomeIcon icon={faComputer}/>
                     </h1>
+                    
                 </div>
                 <FontAwesomeIcon 
                 icon={!open ? faBars : faXmark} 
@@ -71,7 +93,7 @@ const NavBar = (props) => {
                         <DropdownItem name={"Compétences"} linkTo="#skillsAnchor"/>
                         <DropdownItem name={"Projets"} linkTo="#projectsAnchor"/>
                         <DropdownItem name={"Contact"} linkTo="#contactAnchor"/>
-                        <DropdownItem name={"Labs (prochainement)"}/>
+                        {/* <DropdownItem name={"Labs (prochainement)"}/> */}
                     </ul>
                 </div>
             </nav>
@@ -82,7 +104,7 @@ const NavBar = (props) => {
                     <NavItem name={"Compétences"} linkTo="#skillsAnchor"/>
                     <NavItem name={"Projets"} linkTo="#projectsAnchor"/>
                     <NavItem name={"Contact"} linkTo="#contactAnchor"/>
-                    <NavItem name={"Labs (prochainement)"}/>
+                    {/* <NavItem name={"Labs (prochainement)"}/> */}
                 </ul>
             </nav>
             }

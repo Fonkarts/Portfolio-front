@@ -15,7 +15,7 @@ const About = () => {
                 <div className="about__group">
                     <p className="about__description">
                         Je recherche actuellement un poste dans l'Hérault. <br/>
-                        Passionné et rigoureux, je peux mettre mes savoir-faire 
+                        Passionné et volontaire, je peux mettre mes savoir-faire 
                         et mon savoir-être à votre service.
                     </p>
                 </div>

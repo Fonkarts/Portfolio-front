@@ -1,7 +1,7 @@
 // MIXINS
 // Vue intermédiaire (tablette)
 @mixin inter-only {
-    @media screen and (min-width: 581px) and (max-width: 950px) {
+    @media screen and (min-width: 551px) and (max-width: 950px) {
       @content;
     }
 }
@@ -21,21 +21,25 @@
 }
 
 @mixin button-main {
+  font-family: "Roboto Condensed";
   background-color: $color-tertiary;
-  border-radius: 0.5em;
+  border-radius: 0.4em;
   border: none;
 }
 
 // THEME COULEURS
 $color-primary: #333;
 $color-secondary: #f5f6f7;
+// $color-tertiary: #6a97f9; 
 // Bleu sombre
 // $color-primary: #080b50;
 // $color-tertiary: #ffc82f;
 // Bleu clair
-// $color-tertiary: #67dcff; 
-// Bleu Pastel
-$color-tertiary: #6a97f9; 
+$color-tertiary: #4f95ff; 
+$color-navActive: #ffce65;
+$color-validate : #7ab87a;
+
+
 
 
 // $vert-clair: #8fffda;
@@ -53,6 +57,79 @@ $color-tertiary: #6a97f9;
 
 
 // KEYFRAMES
+
+// Animation LOADER
+// Modifie la taille des barres du LOADER
+// Couplé avec une gestion des délais dans "App.js"
+@-webkit-keyframes loader__bars {
+  from {
+    -webkit-transform: scaleY(0.05); 
+  }  
+  20% { 
+    -webkit-transform: scaleY(1.0); 
+  }
+  40%{ 
+    -webkit-transform: scaleY(0.05); 
+  }  
+  to { 
+    -webkit-transform: scaleY(0.05); 
+  }  
+}
+
+@keyframes loader__bars {
+  from { 
+    opacity: 1;
+    -webkit-transform: scaleY(0.05);
+    transform: scaleY(0.05);
+  }  
+  20% { 
+    -webkit-transform: scaleY(1.0);
+    transform: scaleY(1.0);
+  }
+  40% { 
+    -webkit-transform: scaleY(0.05);
+    transform: scaleY(0.05);
+  }
+  to { 
+    -webkit-transform: scaleY(0.05);
+    transform: scaleY(0.05);
+  }
+}
+
+// Modifie la couleur des points de suspension de "CHARGEMENT..."
+@keyframes dot {
+  from {
+    color: $color-primary;
+  }
+  50% {
+    color: white;
+  }
+  to {
+    color: $color-primary;
+
+  }
+}
+
+// Cache le LOADER après un certain délai
+@keyframes hide__loader {
+  from {
+    opacity: 1; 
+  }
+  to {
+    opacity: 0; 
+  }
+}
+
+// Opacifie les sections du site après un certain délai
+@keyframes body__spawn {
+  from {
+      opacity: 0.05;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
 // Animation d'apparition des items du nav en vue mobile et inter
 @keyframes dropdown__spawn {
   from {
@@ -80,5 +157,24 @@ $color-tertiary: #6a97f9;
   to {
     transform: translateX(100%);
     opacity: 0;
+  }
+}
+
+// Cache progressivement le message de succès du formulaire
+@keyframes hide__success {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes submitButton__rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

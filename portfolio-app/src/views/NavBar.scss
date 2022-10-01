@@ -1,0 +1,137 @@
+// SECTION NAV
+
+.header {
+    position: relative;
+}
+
+.nav,
+.nav__item {
+    z-index: 1;
+}
+
+.nav {
+    height: 2em;
+    background-color: $color-primary;
+    color: $color-secondary;
+    border-bottom: 1px white solid;
+    padding: 1em 1em;
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    &__logoContainer {
+        display: flex;
+        height: 2em;
+        width: 2em;
+        border-radius: 50%;
+        color: $color-primary;
+        background-color: $color-secondary;
+        align-items: center;
+        justify-content: center;
+    }
+    &__logo {
+        font-size: 1.2em;
+        color: $color-primary;
+    }
+    &__icon {
+        height: 2em;
+        width: 2em;
+        color: $color-secondary;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        transition: 500ms ease-in-out;
+        &--active {
+            transform: rotate(450deg);
+            color: $color-navActive;
+        }
+    }
+    &__list {
+        @include desktop-only {
+            display: inline-flex;
+            width: 100%;
+        }
+        & :nth-child(1):not(.nav__dropItem--hidden) {
+            top: 4em;
+            animation-delay: 200ms;
+        }
+        & :nth-child(2):not(.nav__dropItem--hidden) {
+            top: 8em;
+            animation-delay: 300ms;
+        }
+        & :nth-child(3):not(.nav__dropItem--hidden) {
+            top: 12em;
+            animation-delay: 400ms;
+        }
+        & :nth-child(4):not(.nav__dropItem--hidden) {
+            top: 16em;
+            animation-delay: 500ms;
+        }
+        & :nth-child(5):not(.nav__dropItem--hidden) {
+            top: 20em;
+            animation-delay: 600ms;
+        }
+        & :nth-child(1):not(.nav__dropItem--displayed) {
+            top: 4em;
+            animation-delay: 600ms;
+        }
+        & :nth-child(2):not(.nav__dropItem--displayed) {
+            top: 8em;
+            animation-delay: 500ms;
+        }
+        & :nth-child(3):not(.nav__dropItem--displayed) {
+            top: 12em;
+            animation-delay: 400ms;
+        }
+        & :nth-child(4):not(.nav__dropItem--displayed) {
+            top: 16em;
+            animation-delay: 300ms;
+        }
+        & :nth-child(5):not(.nav__dropItem--displayed) {
+            top: 20em;
+            animation-delay: 200ms;
+        }
+    }
+    &__item {
+        padding: 0 1em;
+        width: auto;
+        &:hover {
+            transition: all 150ms ease-in-out;
+            // transform: scale(1.1);
+            border-top: 0.1em $color-navActive solid;
+            border-bottom: 0.1em $color-navActive solid;
+            letter-spacing: 1px;
+        }
+    }
+    &__dropItem {
+        position: fixed;
+        top: 4em;
+        right: 0;
+        left: 0;
+        transform: translateX(100%);
+        height: 2em;
+        line-height: 2em;
+        text-align: left;
+        background-color: $color-primary;
+        padding: 1em 2em;
+        border-top: 1px white solid;
+        &--displayed {
+            animation: dropdown__spawn 500ms cubic-bezier(.28,.54,.21,.97) both;
+        }
+        &--hidden {
+            animation: dropdown__hide 500ms cubic-bezier(.28,.54,.21,.97) both;
+        }
+
+    }
+    &__link {
+        color: $color-tertiary;
+        font-size: 1.4em;
+        color: $color-secondary;
+        @include desktop-only {
+            &:hover {
+                transition: all 150ms ease-in-out;
+                color: $color-navActive;
+            }
+        }
+    }
+}

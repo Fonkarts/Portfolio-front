@@ -2,12 +2,39 @@ import React, { useState, useEffect } from "react"
 import { useSwipeable } from "react-swipeable"
 import { faCode, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import groupomania from "../img/projects/p7_home.webp"
-import hotTakes from "../img/projects/p6_demo.webp"
-import ohMyFood from "../img/projects/p3_home.webp"
-
+import groupomania_small from "../img/projects/groupomania_mobile.png"
+import hotTakes_small from "../img/projects/hottakes_mobile.png"
+import ohMyFood_small from "../img/projects/ohmyfood_mobile.png"
+import groupomania_large from "../img/projects/groupomania_desktop.png"
+import hotTakes_large from "../img/projects/hottakes_desktop.png"
+import ohMyFood_large from "../img/projects/ohmyfood_desktop.png"
 
 export const ProjectItem = ({children, width, index, details}) => {
+    
+  // Récupération de la largeur + hauteur du viewport
+  // Utilisé pour  la "size" du reCaptcha dans Contact
+  // ainsi que pour les NavItems
+  const getWindowSize = () => {
+    const {innerWidth, innerHeight} = window;
+    return {innerWidth, innerHeight};
+  } 
+
+  // State renseignant la largeur du viewport
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  // const [view, setView] = useState("mobile")
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+    setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+    window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
 
     const itemDetails = [
         {
@@ -15,30 +42,32 @@ export const ProjectItem = ({children, width, index, details}) => {
             features: "Création de compte utilisateur et connexion / Gestion des privilèges utilisateur et modérateur / Post d'articles, likes et commentaires",
             technologies: "Vue.js, Node.js, MySQL",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_7_03022022",
-            src: groupomania
+            img_small: groupomania_small,
+            img_large: groupomania_large
         },
         {
             description: "L'API destinée à l'application Hot Takes permet de gérer et sécuriser les actions des utilisateurs.",
             features: "Authentification sécurisée de l'utilisateur / Gestion des requêtes concernant les produits",
             technologies: "Node.js, Express, Mongoose, JWT, Bcrypt",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_6_27122021",
-            src: hotTakes
+            img_small: hotTakes_small,
+            img_large: hotTakes_large
         },
         {
             description: "Oh My Food ! est une application de réservation de menus dans de grands restaurants. Ce fut l'un de mes premiers projets.",
             features: "Animations / Responsive / Intégration statique",
             technologies: "HTML / CSS / Sass",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_3_18072021",
-            src: ohMyFood
+            img_small: ohMyFood_small,
+            img_large: ohMyFood_large
         }
     ]
-
     const currentItem = itemDetails[index]
-
+    
     return (
         <div className="carousel__item">
             <div className={`carousel__showcase carousel__showcase${index}`} style={{ width: width }}>
-                <img src={currentItem.src} alt="*" className={`carousel__img carousel__img${index}`}/>
+            <img src={windowSize.innerWidth > 550 ? currentItem.img_large : currentItem.img_small} alt="projet web de sebastien houchet" className={`carousel__img carousel__img${index}`}/>
                 { details ? "" : <h3 className="carousel__title">{children}</h3>}
             </div>
             <div className={details? 
@@ -50,7 +79,7 @@ export const ProjectItem = ({children, width, index, details}) => {
                 <p>{currentItem.features}</p>
                 <h4>Technologies</h4>
                 <p>{currentItem.technologies}</p>
-                <a href={currentItem.githubLink} target="blank">Lien Github</a>             
+                <a href={currentItem.githubLink} target="blank">Voir le code</a>             
             </div>
         </div>
 
@@ -95,7 +124,7 @@ const Projects = ({children}) => {
     return (
         <section className="projects" id="projects">
             <h2 className="projects__title">Projets</h2>
-            <div className="projects__testP">
+            <div className="projects__mainContainer">
                 <div>
                     <p className="projects__text">
                         Voici quelques-uns de mes projets.<br/>

@@ -82,7 +82,7 @@ const Skills = () => {
                     icon={faPeopleRoof}/>
                     <ActionItem
                     title="Favoriser le référencement naturel (SEO), optimiser les performances."
-                    description="Nous assistons aujourd'hui à un réel essor de la transformation numérique, et la concurrence peut parfois être rude. Tirer son épingle du jeu avec une application visible et fluide devient une nécessité."
+                    description="Nous assistons aujourd'hui à un réel essor de la transformation numérique, et la concurrence peut parfois être rude. Tirer son épingle du jeu avec une application visible, fluide et scalable devient une nécessité."
                     icon={faChartLine}/>
                     <ActionItem
                     title="Appliquer les dernières recommandations en termes de cybersécurité."

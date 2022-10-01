@@ -1,0 +1,198 @@
+// SECTION PROJETS
+
+.projects {
+    &__mainContainer {
+        @include desktop-only {
+            display: inline-flex;
+            align-items: center;
+        }
+    }
+    &__title {
+        @include desktop-only {
+            text-align: right;
+        }
+    }
+    
+    &__icon,
+    &__text {
+        text-align: center;
+        margin-bottom: 1em;
+        @include desktop-only {
+            margin: 0 4vw 0 0;
+        }
+    }
+    &__text {
+        @include desktop-only {
+            padding: 0 0 1em 0;
+            text-align: right;
+            font-size: 2.3em;
+            max-width: 15em;
+        }
+    }
+    &__icon {
+        color: lighten($color-primary, 10%);
+        height: 2em;
+        @include desktop-only {
+            font-size: 3em;
+            opacity: 0.2;
+        }
+    }
+}
+
+.carousel {
+    overflow: hidden;
+    border-radius: 0.4em;
+    background-color: $color-primary;
+    width: 240px;
+    margin: auto;
+    @include inter-only {
+        width: 500px;
+    }
+    @include desktop-only {
+        margin: 2em 5vw 2em 3vw;
+        width: 600px;
+    }
+    &__inner {
+        white-space: nowrap;
+        transition: transform 400ms;
+    }
+    &__item {
+        width: 100%;
+        display: inline-block;
+    }
+    &__showcase {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        height: 400px;
+        color: $color-secondary;
+        @include inter-only {
+            height: 450px;
+        }
+        @include desktop-only {
+            height: 500px;
+        }
+    }
+    &__img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        // @include inter-only {
+        //     object-fit: contain;
+        // }
+        // @include desktop-only {
+        //     object-fit: contain;
+        // }
+    }
+    &__title {
+        position: absolute;
+        bottom: -0.8em;
+        left: 0;
+        right: 0;
+        height:1.2em;
+        width: 100%;
+        background-color: $color-primary;
+        color: $color-secondary;
+        border-bottom: 0.1em solid $color-tertiary;
+    }
+    &__itemDetails {
+        display: none;
+        &--active {
+            overflow: hidden;
+            width: auto;
+            display: block;
+            height: auto;
+            text-align: center;
+            padding: 1em;
+            background-color: $color-primary;
+            color: $color-secondary;
+            border-top: 0.1em $color-secondary solid;
+            border-bottom: 0.1em $color-secondary solid;
+            & h3 {
+                font-size: 1.3em;
+            }
+            & h3, h4 {      
+                display: inline;
+                border-bottom: 0.1em solid $color-tertiary;
+            }
+            & p {
+                white-space: pre-line;
+                font-size: 1em;
+                line-height: 1.3em;
+                padding: 1em 0;
+            }
+            & a {
+                text-decoration: none;
+                font-weight: bold; 
+                display: block;
+                width: 8em;
+                margin: 0.6em auto;
+                padding: 0.3em;
+                border-radius: 0.3em;
+                background-color: $color-secondary;
+                color: $color-tertiary;
+                border: none;
+                &:hover {
+                    transform: scale(1.1);
+                    color:$color-secondary;
+                    background: $color-tertiary;
+                }
+            }
+        }
+    }
+    &__detailsControl {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em 0 1em 0;
+        background-color: $color-primary;
+        color: $color-secondary;
+        & svg {
+            height: 1em;
+        }
+        & p {
+            padding-left: 0.5em;
+        }
+    }
+    &__leftSelector,
+    &__rightSelector {
+        display: none;
+        @include desktop-only {
+            display: initial;
+            width: 2em;
+            height: 2em;
+            font-size: 2.5em;
+            margin: 0 auto;
+        }
+    }  
+    &__detailsButton {
+        border-radius: 50%;
+        border: 0.15em $color-secondary solid;
+        height: 1.5em;
+        width: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 100ms ease-in-out;
+        &--active {
+            transform: rotate(90deg);
+        }
+    }
+    &__indicators {
+        display: flex;
+        justify-content: center;
+        background-color: $color-primary;
+        color: $color-secondary;
+    }
+    &__button {
+        padding: 0.3em;
+        margin: 0.5em;
+        border-radius: 0.3em;
+        border: none;
+        background-color: $color-secondary;
+        &--active {
+            background-color: $color-tertiary;
+        }
+    }
+}

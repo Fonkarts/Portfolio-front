@@ -1,4 +1,10 @@
 @import "./variables.scss";
+@import "./views/NavBar.scss";
+@import "./views/About.scss";
+@import "./views/Skills.scss";
+@import "./views/Projects.scss";
+@import "./views/Contact.scss";
+@import "./views/Footer.scss";
 
 // GÉNÉRAL
 * {
@@ -7,12 +13,33 @@
     transition: all ease-in-out 100ms;
 }
 
+body, html {
+    background-color: #1c2020;
+    height: 100%;
+    position: relative;
+    // overflow: hidden;
+}
+
 .app {
     @include full-width;
     font-family: "Roboto Condensed", "Arial", "sans-serif";
     text-align: center;
-
 }
+
+.nav, .about, .skills, .projects, .contact, .footer {
+    -webkit-animation-name: body__spawn;
+    -webkit-animation-duration: 600ms;
+    -webkit-animation-delay: 2800ms;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-timing-function: linear;
+    animation-name: body__spawn;
+    animation-duration: 600ms;
+    animation-delay: 2800ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    opacity: 0.05;
+}
+
 #skillsAnchor,
 #projectsAnchor,
 #contactAnchor {
@@ -33,8 +60,96 @@
     color: $color-secondary;
 }
 
+.loader {
+    margin: 0 auto;
+    width: 13em;
+    height: 5em;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    // La position "top" est calculée dans "NavBar.js" en fonction de la hauteur de l'écran
+    left: 50%;
+    -webkit-animation-name: hide__loader ;
+    -webkit-animation-duration: 0.4s ;
+    -webkit-animation-delay: 3150ms;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: hide__loader ;
+    animation-duration: 0.4s ;
+    animation-delay: 3150ms;
+    animation-fill-mode: forwards;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    & div {
+        height: 8em;
+        width: 0.8em;
+        display: inline-block;
+        margin-left: 2px;
+        -webkit-animation-name: loader__bars ;
+        -webkit-animation-duration: 0.8s ;
+        -webkit-animation-iteration-count: 5;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-name: loader__bars;
+        animation-duration: 0.8s ;
+        animation-iteration-count: 5;
+        animation-timing-function: ease-in-out;
+    }
+    &__bar1 {
+        background-color: #DD6BED;
+    }
+    &__bar2 {
+        background-color: #C26FF7;
+        -webkit-animation-delay: -0.7s;
+        animation-delay: -0.7s;
+    }
+    &__bar3 {
+        background-color: #9670E0;
+        -webkit-animation-delay: -0.6s;
+        animation-delay: -0.6s;
+    }
+    &__bar4 {
+        background-color: #786FF7;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+    &__bar5 {
+        background-color: #6B85ED;
+        -webkit-animation-delay: -0.4s;
+        animation-delay: -0.4s;
+    }
+    &__bar6 {
+        background-color: #4eb6fc;
+        -webkit-animation-delay: -0.3s;
+        animation-delay: -0.3s;
+    }
+    & p {
+        color: $color-secondary;
+        font-size: 1.8em;
+        font-family: "Silkscreen";
+        & span {
+            -webkit-animation-name: dot ;
+            -webkit-animation-duration: 0.5s ;
+            -webkit-animation-iteration-count: 6;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-name: dot;
+            animation-duration: 0.5s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 6;
+            &:nth-child(1) {
+                -webkit-animation-delay: -0.3s;
+                animation-delay: -0.3s;
+            }
+            &:nth-child(2) {
+                -webkit-animation-delay: -0.2s;
+                animation-delay: -0.2s;
+            }   
+            &:nth-child(3) {
+                -webkit-animation-delay: -0.1s;
+                animation-delay: -0.1s;
+            }
+        }
+    }
+}
 h2 {
-    font-size: 1.5em;
+    font-size: 1.8em;
     text-align: center;
     margin-bottom: 1em;
     @include desktop-only {
@@ -45,6 +160,9 @@ h2 {
 
 p, label {
     font-size: 1.2em;
+    @include inter-only {
+        font-size: 1.25em;
+    }
     @include desktop-only {
         font-size: 1.3em;
     }
@@ -58,655 +176,9 @@ ul {
     list-style: none;
 }
 
-.separator {
-    width: 30vw;
-    max-width: 20em;
-    margin: 2em auto;
-    border: 1px $color-tertiary solid;
-}
-
-// SECTION NAV
-
-.header {
-    position: relative;
-}
-
-.nav,
-.nav__item {
-    z-index: 1;
-}
-
-.nav {
-    height: 2em;
-    background-color: $color-primary;
-    color: $color-secondary;
-    border-bottom: 1px white solid;
-    padding: 1em 1em;
-    position: fixed;
-    top:0;
-    right: 0;
-    left: 0;
-    &__logoContainer {
-        display: flex;
-        height: 2em;
-        width: 2em;
-        border-radius: 50%;
-        color: $color-primary;
-        background-color: $color-secondary;
-        align-items: center;
-        justify-content: center;
-    }
-    &__logo {
-        font-size: 1.2em;
-        color: $color-primary;
-    }
-    &__icon {
-        height: 2em;
-        width: 2em;
-        color: $color-secondary;
-        position: absolute;
-        top: 1em;
-        right: 1em;
-        transition: 500ms ease-in-out;
-        &--active {
-            transform: rotate(450deg);
-        }
-    }
-    &__list {
-        @include desktop-only {
-            display: inline-flex;
-            width: 100%;
-        }
-        & :nth-child(1):not(.nav__dropItem--hidden) {
-            top: 4em;
-            animation-delay: 200ms;
-        }
-        & :nth-child(2):not(.nav__dropItem--hidden) {
-            top: 8em;
-            animation-delay: 300ms;
-        }
-        & :nth-child(3):not(.nav__dropItem--hidden) {
-            top: 12em;
-            animation-delay: 400ms;
-        }
-        & :nth-child(4):not(.nav__dropItem--hidden) {
-            top: 16em;
-            animation-delay: 500ms;
-        }
-        & :nth-child(5):not(.nav__dropItem--hidden) {
-            top: 20em;
-            animation-delay: 600ms;
-        }
-        & :nth-child(1):not(.nav__dropItem--displayed) {
-            top: 4em;
-            animation-delay: 600ms;
-        }
-        & :nth-child(2):not(.nav__dropItem--displayed) {
-            top: 8em;
-            animation-delay: 500ms;
-        }
-        & :nth-child(3):not(.nav__dropItem--displayed) {
-            top: 12em;
-            animation-delay: 400ms;
-        }
-        & :nth-child(4):not(.nav__dropItem--displayed) {
-            top: 16em;
-            animation-delay: 300ms;
-        }
-        & :nth-child(5):not(.nav__dropItem--displayed) {
-            top: 20em;
-            animation-delay: 200ms;
-        }
-    }
-    &__item {
-        padding: 0 1em;
-        width: auto;
-    }
-    &__dropItem {
-        position: fixed;
-        top: 4em;
-        right: 0;
-        left: 0;
-        transform: translateX(100%);
-        height: 2em;
-        line-height: 2em;
-        text-align: left;
-        background-color: $color-primary;
-        padding: 1em 2em;
-        border-top: 1px white solid;
-        &--displayed {
-            animation: dropdown__spawn 500ms cubic-bezier(.28,.54,.21,.97) both;
-        }
-        &--hidden {
-            animation: dropdown__hide 500ms cubic-bezier(.28,.54,.21,.97) both;
-        }
-
-    }
-    &__link {
-        color: $color-tertiary;
-        font-size: 1.4em;
-        color: $color-secondary;
-        @include desktop-only {
-            &:hover {
-                transition: all 150ms ease-in-out;
-                font-size: 1.5em;
-                color: #57cfff;
-            }
-        }
+button {
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
     }
 }
-
- // SECTION À PROPOS
-
- .about {
-    margin-top: 4em;
-    &__title {
-        margin: 1em auto;
-        font-size: 1.9em;
-        color: $color-primary;
-        @include desktop-only {
-            font-size: 2.5em;
-            text-align: right;
-            padding: 0 0 2vw 0;
-        }
-    }
-    &__groupContainer {
-        @include desktop-only {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            padding-bottom: 2em;
-        }
-    }
-    &__group {
-        @include desktop-only {
-            padding: 0 4vw;
-        }
-    }
-    &__portrait {
-        height: 7em;
-        width: 7em;
-        border-radius: 50%;
-        padding: 1em 4em 1em 1em;
-            background: $color-primary;
-        @include desktop-only {
-            height: 10em;
-            width: 10em;
-            margin-left: 2em;
-            padding: 1em 4em 1em 1em;
-            background: $color-primary;
-        }
-    }
-    &__description {
-        margin-top: 1em;
-        @include desktop-only {
-            margin-top: 4em;
-            width: 40vw;
-            max-width: 25em;
-            font-size: 2em;
-            text-align: left;
-            padding: 3em 0 0 0;
-        }
-    }
- }
-
-// SECTION COMPÉTENCES
-
-.skills {
-    &__title {
-        @include desktop-only {
-            text-align: left;
-        }
-    }
-    &__actionsContainer {
-        @include desktop-only {
-            display: inline-flex;
-            padding-top: 2em;
-        }
-    }
-    &__actionsGroup {
-        @include desktop-only{
-            padding: 0 6vw;
-        }
-    }
-    &__actionItem {
-        margin-bottom: 1em;
-        @include desktop-only {
-            margin: 0 auto;
-            height: 15em;
-            max-width: 25em;
-        }
-    }
-    &__actionIcon {
-        display: block;
-        font-size: 1.5em;
-        color: $color-tertiary;
-        margin: 1em auto 0.5em auto;
-        @include desktop-only {
-            font-size: 1.8em;
-        }
-    }
-    &__actionTitle {
-        margin: 1em 0.4em;
-        @include desktop-only {
-            font-size: 1.5em;
-        }
-    }
-    &__actionDescription {
-        margin: 0 auto;
-        padding-bottom: 1em;
-        max-width: 20em;
-    }
-    &__skillsItemsContainer {
-        max-width: 44em;
-        margin: 4em auto 2em auto;
-        border: 1px $color-tertiary solid;
-        border-radius: 1em;
-        padding: 1.5em 0;
-        font-family: "Silkscreen";
-        @include desktop-only {
-            margin-top: 7em;
-        }
-        & p {
-            font-size: 1.1em;
-            padding: 0 0.8em;
-            margin-bottom: 1em;
-            @include desktop-only {
-                font-size: 1.4em;
-            }
-        }
-    }
-    &__skillItem {
-        font-size: 0.7em;
-        display: inline-block;
-        padding: 0.7em;
-        @include desktop-only {
-            font-size: 0.9em;
-        }
-    }
-    &__skillTitle {
-        font-weight: normal;
-    }
-    &__skillIcon {
-        width: 2em;
-        height: 2em;
-    }
-    &__resume {
-        margin-top: 1em;
-    }
-    &__resumeTitle {
-        padding: 1em 0;
-        @include desktop-only {
-            font-size: 1.2em;
-        }
-    }
-    &__resumeButton {
-        @include button-main;
-        padding: 0.5em;
-        font-size: 1.1em;
-        font-weight: bold;
-        font-family: "Roboto Condensed";
-        margin-bottom: 1em;
-        background-color: $color-secondary;
-        @include desktop-only {
-            font-size: 1.3em;
-        }
-        & a {
-            color: $color-tertiary;
-        }
-    }
-}
-
-#skillIcon7 {
-    height: 2.5em;
-    width: 2.5em;
-}
-
- // SECTION PROJETS
-
-.projects {
-    &__testP {
-        @include desktop-only {
-            display: inline-flex;
-            align-items: center;
-        }
-    }
-    &__title {
-        @include desktop-only {
-            text-align: right;
-        }
-    }
-    
-    &__icon,
-    &__text {
-        text-align: center;
-        margin-bottom: 1em;
-        @include desktop-only {
-            margin: 0 4vw 0 0;
-        }
-    }
-    &__text {
-        @include desktop-only {
-            padding: 0 0 1em 0;
-            text-align: right;
-            font-size: 2.3em;
-            max-width: 15em;
-        }
-    }
-    &__icon {
-        color: lighten($color-primary, 10%);
-        height: 2em;
-        @include desktop-only {
-            font-size: 3em;
-            opacity: 0.2;
-        }
-    }
-}
-
-.carousel {
-    overflow: hidden;
-    border-radius: 0.2em;
-    background-color: $color-primary;
-    max-width: 30em;
-    margin: auto;
-    @include desktop-only {
-        max-width: 40em;
-        margin: 2em 5vw 2em 3vw;
-    }
-    &__inner {
-        white-space: nowrap;
-        transition: transform 400ms;
-    }
-    &__item {
-        width: 100%;
-        display: inline-block;
-    }
-    &__showcase {
-        position: relative;
-        display: inline-flex;
-        justify-content: center;
-        height: 25em;
-        color: $color-secondary;
-    }
-    &__img {
-        width: 100%;
-        padding-top: 1.5em;
-        object-fit: cover;
-    }
-    &__title {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height:1.2em;
-        width: 100%;
-        background-color: $color-primary;
-        color: $color-secondary;
-        border-bottom: 0.1em solid $color-tertiary;
-    }
-    &__itemDetails {
-        display: none;
-        &--active {
-            overflow: hidden;
-            width: auto;
-            display: block;
-            height: auto;
-            text-align: center;
-            padding: 1em;
-            background-color: $color-primary;
-            color: $color-secondary;
-            border-top: 0.1em $color-secondary solid;
-            border-bottom: 0.1em $color-secondary solid;
-            & h3 {
-                font-size: 1.3em;
-            }
-            & h3, h4 {      
-                display: inline;
-                border-bottom: 0.1em solid $color-tertiary;
-            }
-            & p {
-                white-space: pre-line;
-                font-size: 1em;
-                line-height: 1.3em;
-                padding: 1em 0;
-            }
-            & a {
-                text-decoration: none;
-                font-weight: bold; 
-                color: $color-tertiary;
-                border: none;
-            }
-        }
-    }
-    &__detailsControl {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1em 0 1em 0;
-        background-color: $color-primary;
-        color: $color-secondary;
-        & svg {
-            height: 1em;
-        }
-        & p {
-            padding-left: 0.5em;
-        }
-    }
-    &__leftSelector,
-    &__rightSelector {
-        display: none;
-        @include desktop-only {
-            display: initial;
-            width: 2em;
-            height: 2em;
-            font-size: 2.5em;
-            margin: 0 auto;
-        }
-    }  
-    &__detailsButton {
-        border-radius: 50%;
-        border: 0.15em $color-secondary solid;
-        height: 1.5em;
-        width: 1.5em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 100ms ease-in-out;
-        &--active {
-            transform: rotate(90deg);
-        }
-    }
-    &__indicators {
-        display: flex;
-        justify-content: center;
-        background-color: $color-primary;
-        color: $color-secondary;
-    }
-    &__button {
-        padding: 0.3em;
-        margin: 0.5em;
-        border-radius: 0.3em;
-        border: none;
-        background-color: $color-secondary;
-        &--active {
-            background-color: $color-tertiary;
-        }
-    }
-}
-
- // SECTION CONTACT
- .contact {
-    // @include desktop-only {
-    //     padding-top: 0;
-    // }
-    &__title {
-        @include desktop-only {
-            text-align: left;
-        }
-    }
-    &__errMsg,
-    &__successMsg,
-    &__userNote,
-    &__mailNote,
-    &__msgNote {
-        display: none;
-        &--active {
-            display: inline-flex;
-            padding: 0.4em;
-            margin: 0.2em 0.5em 1em 0.5em;
-            max-width: 25em;
-            background-color: rgb(252, 216, 161);
-            color: $color-primary;
-            border: 0.1em solid $color-primary;
-            border-radius: 1em;
-            text-align: center;
-            & svg {
-                align-self: center;
-                padding: 0 0.6em;
-                font-size: 1.4em;
-                color: $color-primary;
-            }
-            & p {
-                font-size: 1em;
-            }
-        }
-    }
-    &__successMsg--active {
-        display: inline-flex;
-        align-items: center;
-        & svg {
-            color: #6ad86a;
-        }
-    } 
-    &__mainContainer {
-        @include desktop-only {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            padding: 0 5vw;
-        }
-    }
-    &__disclaimer {
-        @include desktop-only {
-            font-size: 2.3em;
-            padding: 1em 2vw 0 0;
-            // padding: 1em 0 0 0;
-            text-align: right;
-            width: 50%;
-        }
-        & svg {
-            width: 2em;
-            height: 2em;
-            padding: 0.5em 3vw 0 0;
-            color: $color-tertiary;
-            @include desktop-only {
-                width: 3.5em;
-                height: 3.5em;
-                color: $color-tertiary;
-                opacity: 0.8;
-            }
-        }
-    }
-    & form {
-        margin: 1em auto 2.5em auto;
-        width: 80vw;
-        padding: 0 0 2em 0;
-        border-radius: 1em;
-        color: $color-primary;
-        @include inter-only {
-            max-width: 70vw;
-        }
-        @include desktop-only {
-            padding: 1.5em 2em 0 0;
-            max-width: 50em;
-            width: 50%;
-        }
-    }
-    & input:not(.contact__button), 
-    textarea {
-        margin: 0.5em 0;
-        width: 70vw;
-        font-family: "Roboto Condensed";
-        border-radius: 0.4em;
-        border: 1px solid $color-primary;
-        @include inter-only {
-            max-width: 25em;
-        }
-        @include desktop-only {
-            width: 40vw;
-            min-width: 10em;
-            max-width: 29em;
-        }
-    }
-    &__nameInput,
-    &__mailInput {
-        height: 2.2em;
-        font-size: 1.2em;
-        padding: 0 0.5em;
-    }
-    &__msgInput {
-        height: 8em;
-        padding: 0.5em;
-        font-size: 1.2em;
-        @include inter-only {
-            height: 10em;
-        }
-    }
-    &__recaptcha>div>div {
-        margin: 0 auto;
-        width: auto;
-    }
-    &__button {
-        @include button-main;
-        margin: 1em auto 0 auto;
-        display: block;
-        font-size: 1.3em;
-        font-family: "Roboto Condensed";
-        background-color: $color-tertiary;
-        color: $color-secondary;
-        width: 8em;
-        height: 1.7em;
-        line-height: 1.3em;
-    }
-    &__socialItemContainer {
-        margin: 2em 0;
-        & p {
-            @include desktop-only {
-                font-size: 1.3em;
-            }
-        }
-        & svg {
-            height: 2em;
-            width: 2em;
-            fill: $color-secondary;
-            @include desktop-only {
-                height: 2.2em;
-                width: 2.2em;
-            }
-        }
-    }
-    &__socialItem {
-        display: inline-block;
-        padding: 1em 2em 0 2em;
-    }
-
-    & a {
-        color: $color-secondary;
-    }
- }
-
- .copyrights {
-    margin-top: 2em;
-    font-size: 0.8em;
-    &__react,
-    & svg {
-        
-        height: 1.1em;
-        width: 1.1em;
-    }
-    &__react {
-        padding: 0 0.4em;
-    }
-    & svg {
-        padding-left: 0.4em;
-        color: #d15555;
-    }
- }

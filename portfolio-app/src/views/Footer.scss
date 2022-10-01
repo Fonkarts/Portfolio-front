@@ -1,0 +1,20 @@
+// SECTION FOOTER
+
+.footer {
+    background-color: $color-primary;
+    color: $color-secondary;
+    font-size: 0.8em;
+    border-top: 0.1em $color-secondary solid;
+    &__react,
+    & svg {
+        height: 1.1em;
+        width: 1.1em;
+    }
+    &__react {
+        padding: 0 0.4em;
+    }
+    & svg {
+        padding-left: 0.4em;
+        color: #d15555;
+    }
+ }

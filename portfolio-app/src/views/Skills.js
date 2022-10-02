@@ -100,7 +100,7 @@ const Skills = () => {
             <div className="skills__resume">
                 <h3 className="skills__resumeTitle">Envie d'en savoir plus ?</h3>
                 <button className="skills__resumeButton">
-                    <a href={cv} download>Télécharger mon CV</a>
+                    <a href={cv} download rel="nofollow">Télécharger mon CV</a>
                 </button>
             </div>
             <span id="projectsAnchor"></span>

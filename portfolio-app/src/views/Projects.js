@@ -79,7 +79,7 @@ export const ProjectItem = ({children, width, index, details}) => {
                 <p>{currentItem.features}</p>
                 <h4>Technologies</h4>
                 <p>{currentItem.technologies}</p>
-                <a href={currentItem.githubLink} target="blank">Voir le code</a>             
+                <a href={currentItem.githubLink} target="blank" rel="nofollow">Voir le code</a>             
             </div>
         </div>
 

@@ -55,7 +55,7 @@ const NavBar = (props) => {
         const loader = document.querySelector(".loader")
         const middleHeight = `${windowHeight/2}px`
         loader.style.top = middleHeight
-    }, [])
+    })
 
     return (   
         <header className="header">

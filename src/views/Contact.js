@@ -158,7 +158,7 @@ const Contact = (props) => {
                     <div className={!userFocus && user && !validName ? "contact__userNote--active" : "contact__userNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="uidnote" >
-                            Votre nom peut comprendre entre 2 et 24 caractères, <br/>
+                            Votre nom ne peut comprendre que des caractères, <br/>
                             incluant les accents, les apostrophes et les tirets.
                         </p>
                     </div>

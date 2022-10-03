@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import ReCAPTCHA from "react-google-recaptcha"
 import axios from "axios"
 
-const USER_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'][A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'-]{2,24}$/;
+const USER_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'\- ]*$/;
 const MAIL_REGEX = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/;
 const MSG_REGEX = /^[0-9A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^-_@/!?.%€+:\n ]+$/;
 

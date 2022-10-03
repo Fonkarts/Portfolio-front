@@ -10,6 +10,7 @@ const NavBar = (props) => {
     // État d'affichage du menu dropdown (mobile)
     const [open, setOpen] = useState(false);
     const [clicked, setClicked] = useState(false);
+    const [stayHidden, setStayHidden] = useState(false);
 
     // Item de navigation mobile
     function DropdownItem (props) {
@@ -24,13 +25,25 @@ const NavBar = (props) => {
             return (
                 <li className=
                 { !open ? 
-                    "nav__dropItem nav__dropItem--hidden" : 
+                    toggleHiddenClass() : 
                     "nav__dropItem nav__dropItem--displayed"}
                     onClick={handleClick}
                 >
                     <a href={props.linkTo} className="nav__link">{props.name}</a>
                 </li>
             )
+        }
+    }
+
+    function toggleHiddenClass() {
+        // Use the "stayHidden" state to reset the className of the dropdownItems.
+        // This is because the hiding animation was playing each time we scroll
+        // on mobile.
+        // So now the className reset after the hiding animation      
+        if(stayHidden) {
+            return "nav__dropItem"
+        } else {
+            return "nav__dropItem nav__dropItem--hidden"
         }
     }
 
@@ -42,12 +55,19 @@ const NavBar = (props) => {
             </li>
         )
     }
-    
+
     function handleClick() {
-        setOpen(!open)
         if(!clicked) {
             setClicked(true)
         }
+        if(clicked && open) {
+            setTimeout(() => {
+                setStayHidden(true)
+            }, 900)
+        } else if(clicked && !open) {
+            setStayHidden(false)
+        }
+        setOpen(!open)   
     }
 
     // Positionne le loader au milieu de la hauteur de l'écran

@@ -6,7 +6,7 @@ import axios from "axios"
 
 const USER_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'\- ]*$/;
 const MAIL_REGEX = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/;
-const MSG_REGEX = /^[0-9A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^-_@/!?.%€+:\n ]+$/;
+const MSG_REGEX = /^[0-9A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^\-_@/!?.%€+:\n ]+$/;
 
 const Contact = (props) => {
 
@@ -155,7 +155,7 @@ const Contact = (props) => {
                         onFocus={() => setUserFocus(true)}
                         onBlur={() => setUserFocus(false)} 
                     />
-                    <div className={!userFocus && user && !validName ? "contact__userNote--active" : "contact__userNote"}>
+                    <div className={userFocus && user && !validName ? "contact__userNote--active" : "contact__userNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="uidnote" >
                             Votre nom ne peut comprendre que des caractères, <br/>
@@ -177,7 +177,7 @@ const Contact = (props) => {
                         onFocus={() => setMailFocus(true)}
                         onBlur={() => setMailFocus(false)}
                     />
-                    <div className={!mailFocus && mail && !validMail ? "contact__mailNote--active" : "contact__mailNote"}>
+                    <div className={mailFocus && mail && !validMail ? "contact__mailNote--active" : "contact__mailNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="mailnote">
                             Votre mail doit se présenter sous la forme 'user@mail.xxx'
@@ -197,7 +197,7 @@ const Contact = (props) => {
                         onFocus={() => setMsgFocus(true)}
                         onBlur={() => setMsgFocus(false)}
                     />
-                    <div className={!msgFocus && msg && !validMsg ? "contact__msgNote--active" : "contact__msgNote"}>
+                    <div className={msgFocus && msg && !validMsg ? "contact__msgNote--active" : "contact__msgNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="msgnote" >
                             Caractères spéciaux autorisés : <br/>

@@ -42,6 +42,7 @@ export const ProjectItem = ({children, width, index, details}) => {
             features: "Création de compte utilisateur et connexion / Gestion des privilèges utilisateur et modérateur / Post d'articles, likes et commentaires",
             technologies: "Vue.js, Node.js, MySQL",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_7_03022022",
+            deployLink : "",
             img_small: groupomania_small,
             img_large: groupomania_large
         },
@@ -50,6 +51,7 @@ export const ProjectItem = ({children, width, index, details}) => {
             features: "Authentification sécurisée de l'utilisateur / Gestion des requêtes concernant les produits",
             technologies: "Node.js, Express, Mongoose, JWT, Bcrypt",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_6_27122021",
+            deployLink : "",
             img_small: hotTakes_small,
             img_large: hotTakes_large
         },
@@ -58,14 +60,14 @@ export const ProjectItem = ({children, width, index, details}) => {
             features: "Animations / Responsive / Intégration statique",
             technologies: "HTML / CSS / Sass",
             githubLink: "https://github.com/Fonkarts/SebastienHOUCHET_3_18072021",
+            deployLink : "https://fonkarts.github.io/SebastienHOUCHET_3_18072021/",
             img_small: ohMyFood_small,
             img_large: ohMyFood_large
         }
     ]
     const currentItem = itemDetails[index]
     
-    return (
-        <div className="carousel__item">
+    return (<div className="carousel__item">
             <div className={`carousel__showcase carousel__showcase${index}`} style={{ width: width }}>
             <img src={windowSize.innerWidth > 550 ? currentItem.img_large : currentItem.img_small} alt="projet web de sebastien houchet" className={`carousel__img carousel__img${index}`}/>
                 { details ? "" : <h3 className="carousel__title">{children}</h3>}
@@ -79,7 +81,11 @@ export const ProjectItem = ({children, width, index, details}) => {
                 <p>{currentItem.features}</p>
                 <h4>Technologies</h4>
                 <p>{currentItem.technologies}</p>
-                <a href={currentItem.githubLink} target="blank" rel="nofollow">Voir le code</a>             
+                <a href={currentItem.githubLink} target="blank" rel="nofollow">Voir le code</a>
+                {currentItem.deployLink !== "" ? 
+                <a href={currentItem.deployLink} target="blank" rel="nofollow">Voir la page</a>
+                : ""
+                }           
             </div>
         </div>
 

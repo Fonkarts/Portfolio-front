@@ -42,16 +42,17 @@
 .carousel {
     overflow: hidden;
     border-radius: 0.4em;
-    background-color: $color-primary;
-    width: 240px;
+    background-color: #405566;
+    width: 90vw;
+    max-width: 35em;
     margin: auto;
-    @include inter-only {
-        width: 500px;
-    }
-    @include desktop-only {
-        margin: 2em 5vw 2em 3vw;
-        width: 600px;
-    }
+    // @include inter-only {
+    //     width: 500px;
+    // }
+    // @include desktop-only {
+    //     margin: 2em 5vw 2em 3vw;
+    //     width: 600px;
+    // }
     &__inner {
         white-space: nowrap;
         transition: transform 400ms;
@@ -70,28 +71,29 @@
             height: 450px;
         }
         @include desktop-only {
-            height: 500px;
+            height: 450px;
         }
     }
     &__img {
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        // @include inter-only {
-        //     object-fit: contain;
-        // }
-        // @include desktop-only {
-        //     object-fit: contain;
-        // }
+        object-fit: contain;
+        @include inter-only {
+            object-fit: cover;
+        }
+        @include desktop-only {
+            object-fit: cover;
+        }
     }
     &__title {
         position: absolute;
-        bottom: -0.8em;
+        bottom: -1em;
         left: 0;
         right: 0;
-        height:1.2em;
+        height: 1.2em;
         width: 100%;
+        padding: 0.2em 0;
         background-color: $color-primary;
         color: $color-secondary;
         border-bottom: 0.1em solid $color-tertiary;
@@ -145,7 +147,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 1em 0 1em 0;
+        padding: 2em 0 1em 0;
         background-color: $color-primary;
         color: $color-secondary;
         & svg {

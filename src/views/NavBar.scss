@@ -97,7 +97,6 @@
         width: auto;
         &:hover {
             transition: all 150ms ease-in-out;
-            // transform: scale(1.1);
             border-top: 0.1em $color-navActive solid;
             border-bottom: 0.1em $color-navActive solid;
             letter-spacing: 1px;
@@ -121,7 +120,6 @@
         &--hidden {
             animation: dropdown__hide 500ms cubic-bezier(.28,.54,.21,.97) both;
         }
-
     }
     &__link {
         color: $color-tertiary;

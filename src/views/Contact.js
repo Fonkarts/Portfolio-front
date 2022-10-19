@@ -6,7 +6,7 @@ import axios from "axios"
 
 const USER_REGEX = /^[A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ'\- ]*$/;
 const MAIL_REGEX = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/;
-const MSG_REGEX = /^[0-9A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^\-()_@/!?.%€+:\n ]+$/;
+const MSG_REGEX = /^[0-9A-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',^\-()"_@/!?.%€+:\n ]+$/;
 
 const Contact = (props) => {
 
@@ -201,7 +201,7 @@ const Contact = (props) => {
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="msgnote" >
                             Caractères spéciaux autorisés : <br/>
-                            ' , ^ - _ @ / ! ? . % € + :
+                            " ' , ^ - _ @ / ! ? . % € + : et parenthèses
                         </p>
                     </div>
                     <div className="contact__captchaContainer">

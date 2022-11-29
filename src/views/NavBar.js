@@ -4,21 +4,26 @@ import { faBars, faXmark, faComputer } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = (props) => {
 
+    // Gets the window width and height from the app.js file
     const windowWidth = props.windowWidth
     const windowHeight = props.windowHeight
 
-    // État d'affichage du menu dropdown (mobile)
+    // Dropdown menu display states (mobile + inter)
+    // When set to true, the menu is displayed and the animation is launched
     const [open, setOpen] = useState(false);
+    // If set to false, prevents the menu opening animation from launching
     const [clicked, setClicked] = useState(false);
+    // See toogleHiddenClass function below
     const [stayHidden, setStayHidden] = useState(false);
+    // État gérant l'ancre de la section dans laquelle l'utilisateur souhaite se rendre
+    const [scrollInto, setScrollInto] = useState(null);
 
-    // Item de navigation mobile
+    // Mobile Nav item component
     function DropdownItem (props) {
-        // Empêche l'animation dropdown de se lancer au 1er chargement de la page
         if(!clicked) {
             return (
                 <li className="nav__dropItem">
-                    <a href={props.linkTo} className="nav__link">{props.name}</a>
+                    <p onClick={() => setScrollInto(props.linkTo)} className="nav__link">{props.name}</p>
                 </li>
             )
         } else {
@@ -29,17 +34,26 @@ const NavBar = (props) => {
                     "nav__dropItem nav__dropItem--displayed"}
                     onClick={handleClick}
                 >
-                    <a href={props.linkTo} className="nav__link">{props.name}</a>
+                    <p onClick={() => setScrollInto(props.linkTo)} className="nav__link">{props.name}</p>
                 </li>
             )
         }
+    }
+
+    // Desktop Nav item component
+    function NavItem (props) {
+        return (
+            <li className="nav__item">
+                <p onClick={() => setScrollInto(props.linkTo)} className="nav__link">{props.name}</p>
+            </li>
+        )
     }
 
     function toggleHiddenClass() {
         // Use the "stayHidden" state to reset the className of the dropdownItems.
         // This is because the hiding animation was playing each time we scroll
         // on mobile.
-        // So now the className reset after the hiding animation      
+        // So now the className resets after the hiding animation      
         if(stayHidden) {
             return "nav__dropItem"
         } else {
@@ -47,15 +61,7 @@ const NavBar = (props) => {
         }
     }
 
-    // Item de navigation desktop
-    function NavItem (props) {
-        return (
-            <li className="nav__item">
-                <a href={props.linkTo} className="nav__link">{props.name}</a>
-            </li>
-        )
-    }
-
+    // Handles the behavior of the dropdown menu animation
     function handleClick() {
         if(!clicked) {
             setClicked(true)
@@ -70,7 +76,16 @@ const NavBar = (props) => {
         setOpen(!open)   
     }
 
-    // Positionne le loader au milieu de la hauteur de l'écran
+    // If the user clicks on a Nav item, the "scrollInto" state gets a value equal to the anchor link
+    // So we can then get the user to that anchor.
+    useEffect(() => {
+        if(scrollInto !== null) {
+            const element = document.querySelector(scrollInto);
+            element.scrollIntoView({behavior: "smooth"})
+        }
+    }, [scrollInto])
+
+    // Centers the loading animation
     useEffect(() => {
         const loader = document.querySelector(".loader")
         const middleHeight = `${windowHeight/2}px`
@@ -79,6 +94,7 @@ const NavBar = (props) => {
 
     return (   
         <header className="header">
+            {/* Loading animation */}
             <div className="loader">
                 <div className="loader__bar1"></div>
                 <div className="loader__bar2"></div>
@@ -94,7 +110,9 @@ const NavBar = (props) => {
                 </p>
             </div>
             <>
+            {/* Is the window width smaller than 951px ? */}
             {windowWidth < 951  ?
+            // If yes, display the dropdown menu (mobile/inter)
             <nav className="nav"> 
                 <div className="nav__logoContainer">
                     <h1 className="nav__logo">
@@ -113,11 +131,12 @@ const NavBar = (props) => {
                         <DropdownItem name={"Compétences"} linkTo="#skillsAnchor"/>
                         <DropdownItem name={"Projets"} linkTo="#projectsAnchor"/>
                         <DropdownItem name={"Contact"} linkTo="#contactAnchor"/>
-                        {/* <DropdownItem name={"Labs (prochainement)"}/> */}
+                        {/* <DropdownItem name={"Labs (soon)"}/> */}
                     </ul>
                 </div>
             </nav>
             : 
+            // If not, display the desktop menu
             <nav className="nav"> 
                 <ul className="nav__list">                    
                     <NavItem name={"À propos"} linkTo="#aboutAnchor" className="test"/>

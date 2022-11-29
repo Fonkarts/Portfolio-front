@@ -41,6 +41,7 @@
         top: 1em;
         right: 1em;
         transition: 500ms ease-in-out;
+        cursor: pointer;
         &--active {
             transform: rotate(450deg);
             color: $color-navActive;
@@ -125,6 +126,7 @@
         color: $color-tertiary;
         font-size: 1.4em;
         color: $color-secondary;
+        cursor: pointer;
         @include desktop-only {
             &:hover {
                 transition: all 150ms ease-in-out;

@@ -3,8 +3,7 @@
 .projects {
     &__mainContainer {
         @include desktop-only {
-            display: inline-flex;
-            align-items: center;
+            display: flex;
         }
     }
     &__title {
@@ -12,20 +11,16 @@
             text-align: right;
         }
     }
-    
     &__icon,
     &__text {
         text-align: center;
-        margin-bottom: 1em;
-        @include desktop-only {
-            margin: 0 4vw 0 0;
-        }
+        margin: 0.5em 0 1em 0;
     }
     &__text {
-        @include desktop-only {
-            padding: 0 0 1em 0;
-            text-align: right;
-            font-size: 2.3em;
+        @include desktop-only {            
+            padding: 1vw 0 1em 1vw;
+            font-size: 2em;
+            width: 25vw;
             max-width: 15em;
         }
     }
@@ -42,17 +37,16 @@
 .carousel {
     overflow: hidden;
     border-radius: 0.4em;
-    background-color: #405566;
-    width: 90vw;
-    max-width: 35em;
+    background-color: #333;
+    width: 250px;
+    max-width: 800px;
     margin: auto;
-    // @include inter-only {
-    //     width: 500px;
-    // }
-    // @include desktop-only {
-    //     margin: 2em 5vw 2em 3vw;
-    //     width: 600px;
-    // }
+    @include inter-only {
+        width: 450px;
+    }
+    @include desktop-only {
+        width: 650px;
+    }
     &__inner {
         white-space: nowrap;
         transition: transform 400ms;
@@ -68,23 +62,17 @@
         height: 400px;
         color: $color-secondary;
         @include inter-only {
-            height: 450px;
+            height: 500px;
         }
         @include desktop-only {
-            height: 450px;
+            height: 500px;
         }
     }
     &__img {
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: contain;
-        @include inter-only {
-            object-fit: cover;
-        }
-        @include desktop-only {
-            object-fit: cover;
-        }
+        object-fit: cover;
     }
     &__title {
         position: absolute;
@@ -166,6 +154,7 @@
             height: 2em;
             font-size: 2.5em;
             margin: 0 auto;
+            cursor: pointer;
         }
     }  
     &__detailsButton {

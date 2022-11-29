@@ -7,19 +7,20 @@ faHandshake,
 faLock,
 faPeopleRoof
 } from "@fortawesome/free-solid-svg-icons"
-import reactLogo from "../img/skills/react.webp"
-import nodeLogo from "../img/skills/node.webp"
-import vueLogo from "../img/skills/vue.webp"
-import htmlLogo from "../img/skills/html.webp"
-import cssLogo from "../img/skills/css.webp"
-import sassLogo from "../img/skills/sass.webp"
-import mysqlLogo from "../img/skills/mysql.webp"
-import mongodbLogo from "../img/skills/mongodb.webp"
-import cv from "../img/cv.pdf"
+import reactLogo from "../assets/img/skills/react.webp"
+import nodeLogo from "../assets/img/skills/node.webp"
+import phpLogo from "../assets/img/skills/php.webp"
+import vueLogo from "../assets/img/skills/vue.webp"
+import htmlLogo from "../assets/img/skills/html.webp"
+import cssLogo from "../assets/img/skills/css.webp"
+import sassLogo from "../assets/img/skills/sass.webp"
+import mysqlLogo from "../assets/img/skills/mysql.webp"
+import mongodbLogo from "../assets/img/skills/mongodb.webp"
+import gitLogo from "../assets/img/skills/git.webp"
+import cv from "../assets/cv.pdf"
 
 
 const Skills = () => {
-
     function ActionItem(props) {
         return (
             <div className="skills__actionItem">
@@ -33,16 +34,18 @@ const Skills = () => {
     }
 
     function SkillsItems() {
+        // The skills icons infos, stored as an array of objects
         const skillsList = [
             {id:"1", name:"React.js", icon: reactLogo},
             {id:"2", name:"Node.js", icon: nodeLogo},
-            {id:"3", name:"Vue.js", icon: vueLogo},
-            {id:"4", name:"HTML", icon: htmlLogo},
-            {id:"5", name:"CSS", icon: cssLogo},
-            {id:"6", name:"Sass", icon: sassLogo},
-            {id:"7", name:"MySQL", icon:mysqlLogo},
-            {id:"8", name:"MongoDB", icon: mongodbLogo}
-            // GIT ?
+            {id:"3", name:"PHP", icon: phpLogo},
+            {id:"4", name:"Vue.js", icon: vueLogo},
+            {id:"5", name:"HTML", icon: htmlLogo},
+            {id:"6", name:"CSS", icon: cssLogo},
+            {id:"7", name:"Sass", icon: sassLogo},
+            {id:"8", name:"MySQL", icon:mysqlLogo},
+            {id:"9", name:"MongoDB", icon: mongodbLogo},
+            {id:"10", name:"Git/GitLab", icon: gitLogo}
         ]
         return (
             skillsList.map(item => 
@@ -62,6 +65,8 @@ const Skills = () => {
             <h2 className="skills__title">Compétences</h2>
             <div className="skills__actionsContainer">
                 <div className="skills__actionsGroup">
+                    {/* !! This will be improved in the near future, as I'm not satisfied doing things that way !! */}
+                    {/* The ActionItems components, infos are passed as props */}
                     <ActionItem
                     title="Comprendre un besoin, le traduire en solution."
                     description="L'exercice de mon ancien métier de Psychomotricien m'a souvent amené à rapidement cerner une demande, envisager son traitement et rester adaptable."

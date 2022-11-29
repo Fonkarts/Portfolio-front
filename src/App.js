@@ -10,19 +10,21 @@ import Footer from "./views/Footer"
 
 function App() {
 
-  // Récupération de la largeur + hauteur du viewport
-  // Utilisé pour  la "size" du reCaptcha dans Contact
-  // ainsi que pour les NavItems
+  // Gets the viewport's width and height
+  // This is used to handle the reCaptcha display mode
+  // the size of the Projects section img (carousel),
+  // and the of Nav menu type (mobile/inter vs. desktop) 
   const getWindowSize = () => {
     const {innerWidth, innerHeight} = window;
     return {innerWidth, innerHeight};
   } 
 
-  // State renseignant la largeur du viewport
-  // et le type de vue à afficher
+  // We store the viewport's width as a state
   const [windowSize, setWindowSize] = useState(getWindowSize());
   // const [view, setView] = useState("mobile")
 
+  // Triggers a eventListener each time the viewport width and height change
+  // Gets the new values and remove the listener
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowSize(getWindowSize())
@@ -45,6 +47,7 @@ function App() {
       <Skills/>
       <Projects>
         <ProjectItem>Groupomania</ProjectItem>
+        <ProjectItem>DLForum</ProjectItem>
         <ProjectItem>Hot Takes API</ProjectItem>
         <ProjectItem>Oh My Food !</ProjectItem>
       </Projects>

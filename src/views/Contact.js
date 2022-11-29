@@ -14,10 +14,14 @@ const Contact = (props) => {
     
     const errRef = useRef("")
 
+    // Gets the value of the "user" input
     const [user, setUser] = useState("")
+    // Is true when the input value is checked by the regex
     const [validName, setValidName] = useState(false)
+    // Is true when the input is focused
     const [userFocus, setUserFocus] = useState(false)
 
+    // Same as previous but with the mail input and the message input
     const [mail, setMail] = useState("")
     const [validMail, setValidMail] = useState(false)
     const [mailFocus, setMailFocus] = useState(false)
@@ -32,7 +36,7 @@ const Contact = (props) => {
     const [errMsg, setErrMsg] = useState("")
     const [success, setSuccess] = useState(false)
 
-    // Validation des entrées
+    // Input values validation
     useEffect(() => {
         const result = USER_REGEX.test(user); 
         setValidName(result) 
@@ -48,33 +52,40 @@ const Contact = (props) => {
         setValidMsg(result) 
     }, [msg])
 
-    // Vide le message d'erreur dès la reprise de la saisie d'un champ
+    // Set the errorMsg to "" when the user enters a new value
     useEffect(() => { 
         setErrMsg("");
     }, [user, mail, msg])
 
+    // 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const v1 = USER_REGEX.test(user);
         const v2 = MAIL_REGEX.test(mail);
         const v3 = MSG_REGEX.test(msg)
         const button = document.querySelector(".submitButton")
+        // If one of the input values is not validated by regex checks
         if(!v1 || !v2 || !v3) {
+            // the button becomes red
             button.classList.add("invalid")
             setTimeout(() => {
                 button.classList.remove("invalid")
             }, 3000)
+            // and this errorMsg is displayed
             setErrMsg("Merci de vérifier vos informations !");
             return;
         }
         try {
+            // If the user proved he/she's not a robot...
             const token = captchaRef.current.getValue();
             captchaRef.current.reset();
+            // we send a request to the back-end (nodemailer) that contains a .env value and the google token
             await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
             .then(() => {
                 sendMail()
                 button.classList.add("onClick")
                 setTimeout(() => {
+                    // updating classNames to launch animation
                     button.classList.remove("onClick")
                     button.classList.add("valid")
                     setTimeout(() => {
@@ -84,22 +95,30 @@ const Contact = (props) => {
                 
             } )
         } catch (err) {
+            // If there's an error...
             const isToken = localStorage.getItem("_grecaptcha")
+            // the submit button get red
             button.classList.add("invalid")
             setTimeout(() => {
                 button.classList.remove("invalid")
             }, 3000)
+            // and we here set different errorMsg depending to the type of error
             if (!err?.response) {
+                // if there's an error but no response
                 setErrMsg("Pas de réponse du serveur !");
+                // if the google token is missing (captcha hasn't been validated)
             } else if(validName && validMail && validMsg && !isToken) {
                 setErrMsg("Veuillez valider le reCAPTCHA !")
             } else {
+                // generic error msg
                 setErrMsg("L'envoi a échoué !")
             }        
         }
+        // we set the focus on the error msg
         errRef.current.focus(); 
     }
 
+    // Resets the success state 2 seconds after successfully sended the message
     const turnSuccessOff = () => {
         setTimeout(() => {
             setSuccess(false)
@@ -107,7 +126,9 @@ const Contact = (props) => {
         
     }
     
+    // Is called only if all the inputs are validated and if the user proved he/she's not a robot
     const sendMail = async() => {
+        // sends the request to the back-end
         await axios.post(process.env.REACT_APP_SENDMAIL_URL, {
             username: user,
             email : mail,
@@ -115,12 +136,14 @@ const Contact = (props) => {
             key: process.env.REACT_APP_SITE_KEY
         })
         .then(() => {
-            setSuccess(true);
+            setSuccess(true)
+            // we empty the input values states
             setUser("")
             setMail("")
             setMsg("")
             setTimeout(() => {
                 turnSuccessOff()
+                // and delete the _grecaptcha token
                 localStorage.clear()
             }, 3000);
         })
@@ -150,11 +173,13 @@ const Contact = (props) => {
                         value={user || ""}
                         onChange={(e) => setUser(e.target.value)}
                         required
-                        aria-invalid={validName ? "false" : "true"} // annonce valid ou pas pour screenReaders
+                        // let the screenReaders know if the input is valid or not
+                        aria-invalid={validName ? "false" : "true"} 
                         aria-describedby= "uidnote"
                         onFocus={() => setUserFocus(true)}
                         onBlur={() => setUserFocus(false)} 
                     />
+                    {/* Displays the info note if the input is focused, not empty and has a wrong value */}
                     <div className={userFocus && user && !validName ? "contact__userNote--active" : "contact__userNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="uidnote" >
@@ -177,6 +202,7 @@ const Contact = (props) => {
                         onFocus={() => setMailFocus(true)}
                         onBlur={() => setMailFocus(false)}
                     />
+                    {/* Displays the info note if the input is focused, not empty and has a wrong value */}
                     <div className={mailFocus && mail && !validMail ? "contact__mailNote--active" : "contact__mailNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="mailnote">
@@ -197,6 +223,7 @@ const Contact = (props) => {
                         onFocus={() => setMsgFocus(true)}
                         onBlur={() => setMsgFocus(false)}
                     />
+                    {/* Displays the info note if the input is focused, not empty and has a wrong value */}
                     <div className={msgFocus && msg && !validMsg ? "contact__msgNote--active" : "contact__msgNote"}>
                         <FontAwesomeIcon icon={faExclamation} />
                         <p id="msgnote" >
@@ -208,6 +235,8 @@ const Contact = (props) => {
                     <ReCAPTCHA 
                         className="contact__recaptcha"
                         sitekey={process.env.REACT_APP_SITE_KEY}
+                        // using windowWidth state to know what to display
+                        // see the resize event handler in the App.js file
                         size={windowWidth < 581 ? "compact" : "normal"}
                         ref={captchaRef}
                     />

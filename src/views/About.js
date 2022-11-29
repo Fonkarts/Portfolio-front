@@ -1,4 +1,4 @@
-import portrait from "../img/miniature.webp"
+import portrait from "../assets/img/miniature.webp"
 
 const About = () => {
     return (

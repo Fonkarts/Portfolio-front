@@ -1,4 +1,4 @@
-import reactLogo from "../img/skills/react.webp"
+import reactLogo from "../assets/img/skills/react.webp"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"; 
 

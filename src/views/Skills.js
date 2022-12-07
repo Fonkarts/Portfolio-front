@@ -46,6 +46,12 @@ const Skills = () => {
             {id:"8", name:"MySQL", icon:mysqlLogo},
             {id:"9", name:"MongoDB", icon: mongodbLogo},
             {id:"10", name:"Git/GitLab", icon: gitLogo}
+            // Docker
+            // Trello
+            
+            // Notions :
+            // Symfony
+            // Angular
         ]
         return (
             skillsList.map(item => 

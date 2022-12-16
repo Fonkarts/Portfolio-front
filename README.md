@@ -14,7 +14,7 @@ https://sebastien-houchet.up.railway.app
 ### Requirements
 
 - React 18.2
-- Create React Apps
+- Create React App
 - Node 16.15
 - npm 8.x
 

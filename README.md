@@ -2,7 +2,7 @@
 
 Hi ! 
 This is the front-end interface of my portfolio.
-As I'm still learning a lot of things about Good Practices and Architecture, please feel free to suggest me improvements.
+As I'm still learning a lot of things about Best Practices and Architecture, please feel free to suggest me improvements.
 There will be new features/improvements as soon as I got time for it (such as unit testing, ES6 review, better component architecture and so on).
 See ya and have a nice coding day ;)
 

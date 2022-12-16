@@ -81,23 +81,20 @@ const Contact = (props) => {
             captchaRef.current.reset();
             // we send a request to the back-end (nodemailer) that contains a .env value and the google token
             await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
-            .then(() => {
-                sendMail()
-                button.classList.add("onClick")
+            sendMail()
+            button.classList.add("onClick")
+            setTimeout(() => {
+                // updating classNames to launch animation
+                button.classList.remove("onClick")
+                button.classList.add("valid")
                 setTimeout(() => {
-                    // updating classNames to launch animation
-                    button.classList.remove("onClick")
-                    button.classList.add("valid")
-                    setTimeout(() => {
-                        button.classList.remove("valid")
-                    }, 3000)
-                }, 1000)
-                
-            } )
+                    button.classList.remove("valid")
+                }, 3000)
+            }, 1000)
         } catch (err) {
             // If there's an error...
             const isToken = localStorage.getItem("_grecaptcha")
-            // the submit button get red
+            // the submit button gets red
             button.classList.add("invalid")
             setTimeout(() => {
                 button.classList.remove("invalid")

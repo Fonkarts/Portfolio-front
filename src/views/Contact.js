@@ -66,7 +66,7 @@ const Contact = (props) => {
             // and delete the _grecaptcha token
             localStorage.clear()
         }, 3000);
-    }, [success === true])
+    }, [success])
 
     // 
     const handleSubmit = async(e) => {

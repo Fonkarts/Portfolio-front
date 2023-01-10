@@ -57,8 +57,19 @@ const Contact = (props) => {
         setErrMsg("");
     }, [user, mail, msg])
 
+    useEffect(() => {
+        setUser("")
+        setMail("")
+        setMsg("")
+        setTimeout(() => {
+            turnSuccessOff()
+            // and delete the _grecaptcha token
+            localStorage.clear()
+        }, 3000);
+    }, [success === true])
+
     // 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const v1 = USER_REGEX.test(user);
         const v2 = MAIL_REGEX.test(mail);
@@ -84,23 +95,19 @@ const Contact = (props) => {
 
 
             // we send a request to the back-end (nodemailer) that contains a .env value and the google token
-            axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
-            .then (() => {
-                sendMail()
-                button.classList.add("onClick")
-                
-                
-                setTimeout(() => {
-                    // updating classNames to launch animation
-                    button.classList.remove("onClick")
-                    button.classList.add("valid")
-                    setTimeout(() => {
-                        button.classList.remove("valid")
-                    }, 3000)
-                }, 1000)
-            })
+            const captchaResponse = await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
+            console.log(captchaResponse)
+            sendMail(captchaResponse.success)
+            button.classList.add("onClick")
             
-        
+            setTimeout(() => {
+                // updating classNames to launch animation
+                button.classList.remove("onClick")
+                button.classList.add("valid")
+                setTimeout(() => {
+                    button.classList.remove("valid")
+                }, 3000)
+            }, 1000)
         } catch (err) {
             // If there's an error...
             const isToken = localStorage.getItem("_grecaptcha")
@@ -134,29 +141,22 @@ const Contact = (props) => {
     }
     
     // Is called only if all the inputs are validated and if the user proved he/she's not a robot
-    const sendMail = () => {
+    const sendMail = (success) => {
         // sends the request to the back-end
-        axios.post(process.env.REACT_APP_SENDMAIL_URL, {
-            username: user,
-            email : mail,
-            message : msg,
-            key: process.env.REACT_APP_SITE_KEY
-        })
-        .then(() => {
-            setSuccess(true)
-            // we empty the input values states
-            setUser("")
-            setMail("")
-            setMsg("")
-            setTimeout(() => {
-                turnSuccessOff()
-                // and delete the _grecaptcha token
-                localStorage.clear()
-            }, 3000);
-        })
-        .catch((err) => {
-            setErrMsg(err)
-        })
+        if(success === true) {
+            try {
+                axios.post(process.env.REACT_APP_SENDMAIL_URL, {
+                    username: user,
+                    email : mail,
+                    message : msg,
+                    key: process.env.REACT_APP_SITE_KEY
+                }) 
+                setSuccess(success)
+            }
+            catch(err) {
+                setErrMsg(err)
+            }
+       }
     }
 
     return (

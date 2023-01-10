@@ -93,7 +93,6 @@ const Contact = (props) => {
             const token = captchaRef.current.getValue();
             captchaRef.current.reset();
 
-
             // we send a request to the back-end (nodemailer) that contains a .env value and the google token
             const captchaResponse = await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
             console.log(captchaResponse)

@@ -57,16 +57,16 @@ const Contact = (props) => {
         setErrMsg("");
     }, [user, mail, msg])
 
-    useEffect(() => {
-        setUser("")
-        setMail("")
-        setMsg("")
-        setTimeout(() => {
-            turnSuccessOff()
-            // and delete the _grecaptcha token
-            localStorage.clear()
-        }, 3000);
-    }, [success])
+    // useEffect(() => {
+    //     setUser("")
+    //     setMail("")
+    //     setMsg("")
+    //     setTimeout(() => {
+    //         turnSuccessOff()
+    //         // and delete the _grecaptcha token
+    //         localStorage.clear()
+    //     }, 3000);
+    // }, [success])
 
     // 
     const handleSubmit = async(e) => {
@@ -143,7 +143,7 @@ const Contact = (props) => {
     const sendMail = (param) => {
         // sends the request to the back-end
             try {
-                if(param.success === true) {
+                if(param.success) {
                     axios.post(process.env.REACT_APP_SENDMAIL_URL, {
                         username: user,
                         email : mail,
@@ -151,6 +151,14 @@ const Contact = (props) => {
                         key: process.env.REACT_APP_SITE_KEY
                     }) 
                     setSuccess(true)
+                    setUser("")
+                    setMail("")
+                    setMsg("")
+                    setTimeout(() => {
+                        turnSuccessOff()
+                        // and delete the _grecaptcha token
+                        localStorage.clear()
+                    }, 3000);
                 }
             }
             catch(err) {

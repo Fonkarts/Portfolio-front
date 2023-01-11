@@ -96,7 +96,7 @@ const Contact = (props) => {
             // we send a request to the back-end (nodemailer) that contains a .env value and the google token
             const captchaResponse = await axios.post(process.env.REACT_APP_CAPTCHA_URL, {token})
             console.log(captchaResponse)
-            sendMail(captchaResponse.success)
+            sendMail(captchaResponse)
             button.classList.add("onClick")
             
             setTimeout(() => {
@@ -140,22 +140,22 @@ const Contact = (props) => {
     }
     
     // Is called only if all the inputs are validated and if the user proved he/she's not a robot
-    const sendMail = (success) => {
+    const sendMail = (param) => {
         // sends the request to the back-end
-        if(success === true) {
             try {
-                axios.post(process.env.REACT_APP_SENDMAIL_URL, {
-                    username: user,
-                    email : mail,
-                    message : msg,
-                    key: process.env.REACT_APP_SITE_KEY
-                }) 
-                setSuccess(success)
+                if(param.success === true) {
+                    axios.post(process.env.REACT_APP_SENDMAIL_URL, {
+                        username: user,
+                        email : mail,
+                        message : msg,
+                        key: process.env.REACT_APP_SITE_KEY
+                    }) 
+                    setSuccess(true)
+                }
             }
             catch(err) {
                 setErrMsg(err)
             }
-       }
     }
 
     return (

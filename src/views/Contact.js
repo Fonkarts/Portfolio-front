@@ -143,7 +143,7 @@ const Contact = (props) => {
     const sendMail = (param) => {
         // sends the request to the back-end
             try {
-                if(param.success) {
+                if(param.status === 200) {
                     axios.post(process.env.REACT_APP_SENDMAIL_URL, {
                         username: user,
                         email : mail,
